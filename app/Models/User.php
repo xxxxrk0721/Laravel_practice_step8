@@ -15,6 +15,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'task_lists';
+    const DELETED_AT = 'del_flg';
+
     /**
      * The attributes that are mass assignable.
      *

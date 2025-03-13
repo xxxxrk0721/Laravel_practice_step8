@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Task\TaskController;
+use App\Http\Controllers\Admin\AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,10 @@ use App\Http\Controllers\Task\TaskController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/login', function () {
+    return view('login');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,5 +35,19 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+
+// 管理ログイン画面
+Route::get('/admin/login', [AdminLoginController::class, 'create'])->name('admin.login');
+// 管理ログイン
+Route::post('/admin/login', [AdminLoginController::class, 'store'])->name('admin.login.store');
+// 管理ログアウト
+Route::delete('/admin/login', [AdminLoginController::class, 'destroy'])->name('admin.login.destroy');
+
+// 管理ログイン後のみアクセス可
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.top');
+    })->name('admin.top');
+});
 
 require __DIR__.'/auth.php';
