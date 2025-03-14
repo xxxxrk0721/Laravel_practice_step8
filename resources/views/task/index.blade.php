@@ -28,6 +28,13 @@
         <!--            タスク一覧表示領域-->
         <div class="search_area">
             <!--                ステータス検索-->
+{{--            <form method="POST" action="{{ route('admin.login.destroy') }}">--}}
+            <form method="POST" action="{{ route('admin.login.destroy') }}">
+                @method('DELETE')
+                @csrf
+                <button type="submit">ログアウト</button>
+            </form>
+
             <form action="{{ route('tasks.index') }}" method="post">
                 @csrf
                 <div class="status_name">

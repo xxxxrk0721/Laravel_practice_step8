@@ -45,9 +45,8 @@ class AdminRegisterController extends Controller
         event(new Registered($admin));
 
         Auth::guard('admin')->login($admin);
-
 //        return redirect(RouteServiceProvider::HOME);
-        return redirect('/admin');
-//        return redirect('/admin/tasks');
+//        return redirect('/admin');
+        return redirect('/tasks');
     }
 }

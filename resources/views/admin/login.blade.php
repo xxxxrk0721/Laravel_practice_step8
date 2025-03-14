@@ -54,6 +54,9 @@
     <div class="admin_register">
         <a href="{{ route('admin.register') }}">新規登録</a>
     </div>
+    <div>
+        <a href="{{ url('/') }}">トップページへ戻る</a>
+    </div>
 </main>
 </body>
 </html>

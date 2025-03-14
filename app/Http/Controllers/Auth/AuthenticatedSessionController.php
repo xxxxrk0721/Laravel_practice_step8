@@ -29,7 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(route('tasks.index'));
+//        return redirect()->intended(RouteServiceProvider::HOME);
+//        return redirect()->intended(route('tasks.index'));
+//        return redirect('/');
     }
 
     /**
@@ -37,12 +40,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+//        Auth::guard('web')->logout();
+        Auth::guard('users')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 }

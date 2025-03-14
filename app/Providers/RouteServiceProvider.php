@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     // ユーザー用
-//    public const HOME = '/dashboard';
+    public const HOME = '/dashboard';
     // 管理者用
 //    public const ADMIN_HOME = '/admin/dashboard';
 

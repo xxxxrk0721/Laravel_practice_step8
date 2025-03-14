@@ -26,9 +26,12 @@
 <body>
 <main>
     @auth('admin')
-        <p>ログイン中です。</p>
+        <p>管理者ログイン中です。</p>
+    @elseauth('users')
+        <p>ユーザーログイン中です。</p>
     @endauth
-    <form method="POST" action="{{ route('admin.login.destroy') }}">
+{{--    <form method="POST" action="{{ route('admin.login.destroy') }}">--}}
+    <form method="POST" action="{{ route('login.destroy') }}">
         @method('DELETE')
         @csrf
         <button type="submit">ログアウト</button>

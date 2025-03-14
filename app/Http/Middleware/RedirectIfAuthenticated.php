@@ -27,7 +27,10 @@ class RedirectIfAuthenticated
 //            }
 //        }
         if(Auth::guard(self::GUARD_USER)->check()){
-            return redirect(RouteServiceProvider::HOME);
+//            return redirect(RouteServiceProvider::HOME);
+//            dd(456);
+            return redirect('/user/dashboard');
+//            return redirect('/login');
         }
 
         if(Auth::guard(self::GUARD_ADMIN)->check() && $request->routeIs('admin.*')){
