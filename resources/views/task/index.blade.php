@@ -29,6 +29,7 @@
         <div class="search_area">
             <!--                ステータス検索-->
             <form action="{{ route('tasks.index') }}" method="post">
+                @csrf
                 <div class="status_name">
                     <p>ステータス:</p>
                 </div>
@@ -55,6 +56,7 @@
             </form>
         </div>
         <form action="{{ route('tasks.index') }}" method="post">
+            @csrf
             <div class="button_area">
                 <!--            検索画面遷移用ボタン-->
                 <div class="search_button">

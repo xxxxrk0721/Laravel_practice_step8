@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->Integer('user_id');
+            $table->unsignedBigInteger('user_id')->default(1); // デフォルト値を 1 にする
             $table->timestamps();
             $table->boolean('del_flg')->default(false);
         });

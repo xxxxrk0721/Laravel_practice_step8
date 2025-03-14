@@ -17,7 +17,7 @@ class Admin extends Authenticatable
 //    use HasFactory;
     use HasApiTokens, HasFactory, Notifiable;
 
-//    protected $table = 'admins';
+    protected $table = 'admins';
 //    const DELETED_AT = 'del_flg';
 
     protected $fillable = [

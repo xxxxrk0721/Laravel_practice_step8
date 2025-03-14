@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
 
+Route::get('/admin/register', [AdminRegisterController::class, 'create'])
+    ->name('admin.register');
+
+Route::post('/admin/register', [AdminRegisterController::class, 'store']);
+
+
 // 管理ログイン画面
 Route::get('/admin/login', [AdminLoginController::class, 'create'])->name('admin.login');
 // 管理ログイン
@@ -45,9 +52,11 @@ Route::delete('/admin/login', [AdminLoginController::class, 'destroy'])->name('a
 
 // 管理ログイン後のみアクセス可
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.top');
-    })->name('admin.top');
+//    Route::get('/admin', function () {
+//        return view('admin.top');
+//    })->name('admin.top');
+
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
 });
 
 require __DIR__.'/auth.php';

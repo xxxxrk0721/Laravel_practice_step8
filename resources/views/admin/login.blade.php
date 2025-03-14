@@ -20,6 +20,15 @@
         form {
             text-align: right;
         }
+
+        /*.admin_register {*/
+        /*    width: 50px;*/
+        /*    height: 50px;*/
+        /*}*/
+        a {
+            color: black;
+            /*line-height: normal;*/
+        }
     </style>
 </head>
 
@@ -32,7 +41,7 @@
             <input type="email" id="email" name="email" required />
         </div>
         <div>
-            <label for="password">Password: </label>
+            <label for="password">パスワード: </label>
             <input type="password" id="password" name="password" required />
         </div>
         <div>
@@ -42,6 +51,9 @@
             <button type="submit">ログイン</button>
         </div>
     </form>
+    <div class="admin_register">
+        <a href="{{ route('admin.register') }}">新規登録</a>
+    </div>
 </main>
 </body>
 </html>

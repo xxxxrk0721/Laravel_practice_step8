@@ -4,23 +4,22 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class AdminSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        DB::table('admins')->insert([
+        DB::table('users')->insert([
             'name' => '管理者',
-            'email' => 'admin1@example.com',  // 任意の管理者用メールアドレス
-            'password' => Hash::make('password123'),  // ハッシュ化したパスワード
-//            'password' => ('password'),
+            'email' => 'user1@example.com',  // 任意の管理者用メールアドレス
+            'password' => ('password'),
             'remember_token' => null,  // remember_token を NULL に設定（必要に応じて設定）
             'user_id' => 1,  // 任意の user_id
             'created_at' => Carbon::now(),  // 現在の日時
