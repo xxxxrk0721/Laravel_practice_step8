@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite(['resources/js/app.js'])
     <title>タスク管理一覧</title>
 {{--    <link rel="stylesheet" href="sanitize.css">--}}
 {{--    <link rel="stylesheet" href="style.css">--}}
@@ -16,8 +17,11 @@
     <div class="header_inner">
         <!--            編集画面遷移用ボタン-->
         <div class="tsk_tittle">
-            <h1>業務進捗ダッシュボード</h1>
+            <h1>業務進捗ダッシュボード(管理者用)</h1>
         </div>
+        @if (session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
 
     </div>
 </header>
@@ -34,43 +38,53 @@
                 @csrf
                 <button type="submit">ログアウト</button>
             </form>
-
-            <form action="{{ route('tasks.index') }}" method="post">
+            <div class="search_area">
+            <form action="{{ route('tasks.index') }}" method="GET">
                 @csrf
                 <div class="status_name">
                     <p>ステータス:</p>
                 </div>
-                <select name="syori_status">
-                    <option value=1>未着手</option>
-                    <option value=2>対応中</option>
-                    <option value=3>完了</option>
+                <select name="status">
+                    <option value="">すべてのステータス</option>
+                    <option value=1 {{ request('status') == "1" ? 'selected' : '' }}>未着手</option>
+                    <option value=2 {{ request('status') == "2" ? 'selected' : '' }}>対応中</option>
+                    <option value=3 {{ request('status') == "3" ? 'selected' : '' }}>完了</option>
                 </select>
                 <!--                タスク名検索-->
                 <div class="tsk_name">
                     <p>タスク名称:</p>
                 </div>
-                <input type="text" name="task_name" value="">
+                <input type="text" name="task_name" value="{{ request('task_name') }}" placeholder="タスク名を検索">
                 <!--                日付検索-->
                 <div class="ymd_name">
                     <p>開始日:</p>
                 </div>
-                <input type="date" name="str_ymd_search" value="">
+                <input type="date" name="ymd_to" value="{{ request('ymd_to') }}">
+{{--                <input type="date" name="ymd_to" value="">--}}
                 <div class="ymd_name">
                     <p>終了日:</p>
                 </div>
-                <input type="date" name="end_ymd_search" value="">
+                <input type="date" name="ymd_from" value="{{ request('ymd_from') }}">
+{{--                <input type="date" name="end_ymd_search" value="">--}}
+                <div>
+                    <p>ユーザーID</p>
+                </div>
+{{--                <input type="text" name="user_id" value="">--}}
+                <input type="text" name="user_id" value="{{ request('user_id') }}" placeholder="ユーザーIDを検索">
                 <input type="submit" value="検索">
             </form>
+            </div>
         </div>
-        <form action="{{ route('tasks.index') }}" method="post">
+        <form action="{{ route('tasks.index') }}" method="GET">
             @csrf
             <div class="button_area">
                 <!--            検索画面遷移用ボタン-->
-                <div class="search_button">
-                    <a href="{{ route('tasks.index') }}">タスク検索</a>
-                </div>
+{{--                <div class="search_button">--}}
+{{--                    <a href="{{ route('tasks.index') }}">タスク検索</a>--}}
+{{--                </div>--}}
                 <div class="edit_button">
-                    <input type="submit" value="タスク編集">
+{{--                    <input type="submit" value="タスク登録">--}}
+                    <a href="{{ route('tasks.store') }}">タスク登録</a>
                 </div>
             </div>
             <table class="task">
@@ -81,6 +95,7 @@
                     <th class="end">終了日▼▲</th>
                     <th class="tsk">内容</th>
                     <th class="state">進捗状況</th>
+                    <th class="user_id">ユーザーID</th>
                 </tr>
 {{--                @dd($tasks);--}}
                 @foreach ($tasks as $row)
@@ -118,10 +133,17 @@
                         @endswitch
 
                     </td>
+                    <td class="user_id">{{ $row->user_id }}</td>
+                    <td>
+                        <a href="{{ route('tasks.edit',['id' => $row->id])  }}">編集</a>
+                    </td>
                 </tr>
 
                 @endforeach
             </table>
+            {{ $tasks->appends(request()->query())->links('vendor.pagination.default') }}
+{{--            {{ $tasks->links('vendor.pagination.default') }}--}}
+
 
         </form>
     </div>

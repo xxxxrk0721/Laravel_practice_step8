@@ -34,18 +34,15 @@ Route::get('/', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/user/dashboard', function(){
-    return view('admin.top');
-//    dd(Auth::user());
-//    dd(123);
-//    return view('auth.login');
-    // ユーザーログイン画面
-//    Route::get('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
-// ユーザーログイン
-//    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
-// ユーザーログアウト
-//    Route::delete('/login', [AuthenticatedSessionController::class, 'destroy'])->name('login.destroy');
-});
+//Route::get('/user/dashboard', function(){
+//    return view('admin.top');
+//});
+
+//Route::get('/user/dashboard', function() {
+//    return app(AuthenticatedSessionController::class)->index();
+//})->name('user.dashboard');
+
+Route::get('/user/dashboard', [AuthenticatedSessionController::class, 'index'])->name('user.dashboard');
 
 // ユーザーログアウト
 Route::delete('/login', [AuthenticatedSessionController::class, 'destroy'])->name('login.destroy');
@@ -77,7 +74,12 @@ Route::middleware('auth:admin')->group(function () {
 //        return view('admin.top');
 //    })->name('admin.top');
 
-    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');//一覧表示
+    Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit'); //編集画面の表示
+    Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update'); //登録内容の編集
+    Route::match(['get', 'post'],'/tasks/store', [TaskController::class, 'store'])->name('tasks.store'); //新規登録
+    Route::delete('/tasks/{id}/delete', [TaskController::class, 'destroy'])->name('tasks.destroy'); // ソフトデリート
+
 });
 
 // ユーザーログイン後のみアクセス可

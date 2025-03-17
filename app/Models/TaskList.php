@@ -13,7 +13,7 @@ class TaskList extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'task_lists';
-    const DELETED_AT = 'del_flg';
+//    const DELETED_AT = 'del_flg';
 
     protected $fillable = [
         'task_name',
@@ -22,26 +22,26 @@ class TaskList extends Model
         'task_content',
         'user_id',
         'status',
-        'del_flg'
+        'deleted_at'
     ];
 
     // デフォルトで 'del_flg' が 0（削除されていない）場合に表示
-    protected $casts = [
-        'del_flg' => 'boolean',  // 'del_flg' カラムを boolean としてキャスト
-    ];
+//    protected $casts = [
+//        'del_flg' => 'boolean',  // 'del_flg' カラムを boolean としてキャスト
+//    ];
 
     // 論理削除（del_flg を 1 にする）
-    public function softDelete()
-    {
-        $this->del_flg = 1;  // 削除フラグを 1 に設定
-        $this->save();
-    }
+//    public function softDelete()
+//    {
+//        $this->del_flg = 1;  // 削除フラグを 1 に設定
+//        $this->save();
+//    }
 
     // 削除されていないタスクを取得するスコープ
-    public function scopeNotDeleted($query)
-    {
-        return $query->where('del_flg', 0);  // del_flg が 0 のタスク（削除されていない）
-    }
+//    public function scopeNotDeleted($query)
+//    {
+//        return $query->where('del_flg', 0);  // del_flg が 0 のタスク（削除されていない）
+//    }
 
     public function User()
     {
