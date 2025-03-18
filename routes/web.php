@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegisterController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -42,7 +43,9 @@ Route::get('/', function () {
 //    return app(AuthenticatedSessionController::class)->index();
 //})->name('user.dashboard');
 
-Route::get('/user/dashboard', [AuthenticatedSessionController::class, 'index'])->name('user.dashboard');
+//Route::get('/user/dashboard', [AuthenticatedSessionController::class, 'index'])->name('user.dashboard');
+//ユーザーログイン語
+//Route::post('/login', [AdminLoginController::class, 'store'])->name('login.store');
 
 // ユーザーログアウト
 Route::delete('/login', [AuthenticatedSessionController::class, 'destroy'])->name('login.destroy');
@@ -59,6 +62,7 @@ Route::get('/admin/register', [AdminRegisterController::class, 'create'])
     ->name('admin.register');
 
 Route::post('/admin/register', [AdminRegisterController::class, 'store']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
 // 管理ログイン画面
@@ -83,12 +87,15 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 // ユーザーログイン後のみアクセス可
-Route::middleware('auth:user')->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.top');
-    })->name('admin.top');
-
-//    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+Route::middleware('auth:users')->group(function () {
+    Route::get('/user/dashboard', [TaskController::class, 'userIndex'])->name('user.dashboard');
+    Route::get('/user/dashboard/{id}/edit', [TaskController::class, 'userEdit'])->name('user.dashboard.edit'); //編集画面の表示
+    Route::put('/user/dashboard/{id}', [TaskController::class, 'userUpdate'])->name('user.dashboard.update'); //登録内容の編集
+    Route::match(['get', 'post'],'/user/dashboard/store', [TaskController::class, 'userStore'])->name('user.dashboard.store'); //新規登録
+    Route::delete('/user/dashboard/{id}/delete', [TaskController::class, 'userDestroy'])->name('user.dashboard.destroy'); // ソフトデリート
+//    Route::get('/admin', function () {
+//        return view('admin.top');
+//    })->name('admin.top');
 });
 
 require __DIR__.'/auth.php';

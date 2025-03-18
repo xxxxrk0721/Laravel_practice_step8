@@ -37,48 +37,42 @@ class AuthenticatedSessionController extends Controller
 //        return redirect('/');
     }
 
-    public function index(Request $request)
-    {
-        // 現在ログインしているユーザーの ID を取得
-        $userId = Auth::id();
-        dd($userId);
-
-//        $query = DB::table('task_lists')->whereNull('deleted_at');
-        // 条件を適用して task_lists テーブルのデータを取得
-        $query = DB::table('task_lists')
-            ->where('user_id', $userId)
-            ->whereNull('deleted_at');
-//            ->get();
-
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        // 検索キーワードが送信された場合（タスク名で検索）
-        if ($request->filled('task_name')) {
-            $query->where('task_name', 'like', '%' . $request->task_name . '%');
-        }
-
-        // 検索キーワードが送信された場合（日付で検索）
-        if ($request->filled('ymd_to')) {
-            $query->where('ymd_to',$request->ymd_to);
-        }
-
-        // 検索キーワードが送信された場合（日付で検索）
-        if ($request->filled('ymd_from')) {
-            $query->where('ymd_from', $request->ymd_from);
-        }
-
-        // ユーザーID
-        if ($request->filled('user_id')) {
-            $query->where('user_id', 'like', '%' . $request->user_id . '%');
-        }
-        $tasks = $query->paginate(10);
-        // 検索結果をビューに渡す
-        return view('admin.top', compact('tasks'));
-//        $tasks = TaskList::all();  // TaskList モデルからすべてのタスクを取得
-//        return view('task.index', compact('tasks'));  // 'task.index' ビューを返す
-    }
+//    public function index(Request $request)
+//    {
+//        // 現在ログインしているユーザーの ID を取得
+//        $userId = Auth::guard('users')->id();
+//
+//        $query = DB::table('task_lists')
+//            ->where('user_id', $userId)
+//            ->whereNull('deleted_at');
+//
+//        if ($request->filled('status')) {
+//            $query->where('status', $request->status);
+//        }
+//
+//        // 検索キーワードが送信された場合（タスク名で検索）
+//        if ($request->filled('task_name')) {
+//            $query->where('task_name', 'like', '%' . $request->task_name . '%');
+//        }
+//
+//        // 検索キーワードが送信された場合（日付で検索）
+//        if ($request->filled('ymd_to')) {
+//            $query->where('ymd_to',$request->ymd_to);
+//        }
+//
+//        // 検索キーワードが送信された場合（日付で検索）
+//        if ($request->filled('ymd_from')) {
+//            $query->where('ymd_from', $request->ymd_from);
+//        }
+//
+//        // ユーザーID
+//        if ($request->filled('user_id')) {
+//            $query->where('user_id', 'like', '%' . $request->user_id . '%');
+//        }
+//        $tasks = $query->paginate(10);
+//        // 検索結果をビューに渡す
+//        return view('admin.top', compact('tasks'));
+//    }
 
     /**
      * Destroy an authenticated session.

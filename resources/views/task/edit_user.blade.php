@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang=ja>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>編集・削除画面</title>
+</head>
+<body>
+<!--ヘッダー-->
+<header>
+    <!--        レイアウト調整領域（ヘッダー）-->
+    <div class="header_inner">
+        <div class="tsk_tittle">
+            <h1>タスク編集画面</h1>
+        </div>
+    </div>
+</header>
+<!--メイン-->
+<div class="main">
+    <!--        レイアウト調整領域（メイン）-->
+    <div class="main_inner">
+        <!--            タスク一覧表示領域-->
+        @if (session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
+        <form action="{{ route('user.dashboard.update',$task->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="button_area">
+                <!--            一覧画面遷移用ボタン-->
+                <div class="allnemu_button">
+                    <a href="{{ route('user.dashboard') }}">タスク一覧へ戻る</a>
+                </div>
+                <div class="update_button">
+                    <input type="submit" value="更新">
+                </div>
+            </div>
+            <table class="task">
+                <tr class="title">
+                    <th>項番</th>
+                    <th>タスク名称</th>
+                    <th>開始日</th>
+                    <th>終了日</th>
+                    <th>内容</th>
+                    <th>ユーザーID</th>
+                    <th>進捗状況</th>
+                </tr>
+                <tr class="tsk_content">
+                    <td>
+                        <!-- ID を表示（編集不可） -->
+                        <input type="text"  name="id" value="{{ $task->id }}" readonly>
+                        <!-- ID を隠しフィールドとしても送信 -->
+                        <input type="hidden"  name="id_hidden" value="{{ $task->id }}">
+                    </td>
+                    <td>
+                        <input type="text" name="task_name" value="{{ $task->task_name }}">
+                    </td>
+                    <td>
+                        <input type="date" name="ymd_to" value="{{ $task->ymd_to }}">
+                    </td>
+                    <td>
+                        <input type="date" name="ymd_from" value="{{ $task->ymd_from }}">
+                    </td>
+                    <td>
+                        <input type="text" name="task_content" value="{{ $task->task_content }}">
+                    </td>
+                    <td>
+                        <input type="text" name="user_id" value="{{ $task->user_id }}">
+                    </td>
+                    <td>
+                        <select name="status">
+{{--                            @dd($tsk);--}}
+                            <option value=1 {{ $task->status == 1 ? 'selected' : '' }}>未着手</option>
+                            <option value=2 {{ $task->status == 2 ? 'selected' : '' }}>対応中</option>
+                            <option value=3 {{ $task->status == 3 ? 'selected' : '' }}>完了</option>
+                        </select>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <form action="{{ route('user.dashboard.destroy', $task->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('このタスクを削除しますか？')">削除</button>
+        </form>
+    </div>
+</div>
+<footer>
+
+</footer>
+</body>
+</html>

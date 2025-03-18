@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/sass/app.scss',
+                'resources/scss/login.scss', // 追加
             ],
             refresh: true,
         }),

@@ -1,13 +1,201 @@
-main {
-    background-color: antiquewhite;
-    h1{
-        color: #ef4444;
+// トップページ
+.antialiased {
+    .welcome_page {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 画面の高さを100%にする */
+
+        .welcome_nav {
+            text-align: center;
+            display: flex;
+            a {
+                display: block;
+                padding: 10px;
+            }
+        }
     }
 }
 
+// ログイン画面
+.login {
+    width: 100%;
+    .login_inner {
+        width: 70%;
+        text-align: center;
+        margin: 0 auto;
+        .nav {
+            display: flex;
+            justify-content: left;
+            padding: 20px;
 
-.search_area {
-    form {
-        display: flex;
+            div {
+                margin-left: 20px;
+            }
+        }
+
+        .access_form {
+            form {
+                text-align: right;
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+
+                .login_button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 30px;
+                }
+            }
+        }
+
+        a {
+            color: black;
+        }
+
     }
+}
+
+// ダッシュボード
+.header_inner {
+    width: 100%;
+    .tsk_tittle {
+        width: 80%;
+        margin: 0 auto;
+        h1 {
+            text-align: center;
+        }
+    }
+}
+.search {
+    width: 100%;
+
+    .button_area {
+        margin: 0 auto;
+        width: 80%;
+        height: 50px;
+
+        .nav {
+            display: flex;
+            justify-content: left;
+            width: 82%;
+        }
+    }
+    .search_area {
+        width: 80%;
+        margin: 0 auto;
+        height: 50px;
+
+        .search_form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            //line-height: 50px; /* `height` と同じ値を指定 */
+
+            div {
+                height: 100%;
+                padding: 0 10px;
+                p {
+                    height: 100%;
+                    margin: 0;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
+}
+
+.search_list {
+    width: 100%;
+    .list {
+        width: 80%;
+        margin: 0 auto;
+        .task {
+            width: 100%; /* テーブルの幅を画面いっぱいに */
+            border-collapse: collapse; /* セルの境界線を統一 */
+            th, td {
+                width: 200px; /* セルの幅を固定 */
+                padding: 10px;
+                border: 1px solid #ccc;
+                text-align: center;
+            }
+        }
+    }
+}
+
+// pagenateレイアウト
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination .active span {
+    background-color: blue;
+    color: white;
+    border-color: blue;
+}
+
+.pagination .disabled span {
+    color: gray;
+}
+
+// 編集画面
+.main_edit_inner{
+    width: 100%;
+}
+.edit_table {
+    margin: 0 auto;
+    width: 80%;
+    .task {
+        width: 100%; /* テーブルの幅を画面いっぱいに */
+        border-collapse: collapse; /* セルの境界線を統一 */
+        th, td {
+            width: 200px; /* セルの幅を固定 */
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+    }
+}
+
+.button_area {
+    margin: 0 auto;
+    width: 80%;
+    height: 50px;
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        div {
+            margin-right: 20px;
+        }
+    }
+}
+
+.delete_area {
+    margin: 0 auto;
+    width: 80%;
+    padding-top: 20px;
 }
