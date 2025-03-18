@@ -8,43 +8,42 @@
     <style>
     </style>
 </head>
-
 <body>
-<main class="login">
-    <div class="login_inner">
-        <div class="title">
-            <h1>管理者用ログイン画面</h1>
-        </div>
-        <div class="nav">
-            <div class="admin_register">
-                <a href="{{ route('admin.register') }}">新規登録</a>
+    <main class="login">
+        <div class="login_inner">
+            <div class="title">
+                <h1>管理者用ログイン画面</h1>
             </div>
-            <div>
-                <a href="{{ url('/') }}">トップページへ戻る</a>
+            <div class="nav">
+                <div class="admin_register">
+                    <a href="{{ route('admin.register') }}" class="button admin">新規登録</a>
+                </div>
+                <div>
+                    <a href="{{ url('/') }}" class="button back">トップページへ戻る</a>
+                </div>
             </div>
-        </div>
-        <div class="access_form">
-            <form method="POST" action="{{ route('admin.login.store') }}">
-                @csrf
-                <div class="form">
-                    <div>
-                        <label for="email">メールアドレス: </label>
-                        <input type="email" id="email" name="email" required />
+            <div class="access_form">
+                <form method="POST" action="{{ route('admin.login.store') }}">
+                    @csrf
+                    <div class="form">
+                        <div>
+                            <label for="email">メールアドレス</label>
+                            <input type="email" id="email" name="email" required />
+                        </div>
+                        <div>
+                            <label for="password">パスワード</label>
+                            <input type="password" id="password" name="password" required />
+                        </div>
                     </div>
-                    <div>
-                        <label for="password">パスワード: </label>
-                        <input type="password" id="password" name="password" required />
+                    <div class="login_button">
+                        <button type="submit" class="button login">ログイン</button>
                     </div>
-                </div>
-                <div class="login_button">
-                    @error('failed')
-                    <p style="color:red">{{ $message }}</p>
-                    @enderror
-                    <button type="submit">ログイン</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            @error('failed')
+            <p style="color:red">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
-</main>
+    </main>
 </body>
 </html>

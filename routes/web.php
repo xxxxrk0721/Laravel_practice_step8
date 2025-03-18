@@ -27,26 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-
-//Route::get('/user/dashboard', function(){
-//    return view('admin.top');
-//});
-
-//Route::get('/user/dashboard', function() {
-//    return app(AuthenticatedSessionController::class)->index();
-//})->name('user.dashboard');
-
-//Route::get('/user/dashboard', [AuthenticatedSessionController::class, 'index'])->name('user.dashboard');
-//ユーザーログイン語
-//Route::post('/login', [AdminLoginController::class, 'store'])->name('login.store');
-
 // ユーザーログアウト
 Route::delete('/login', [AuthenticatedSessionController::class, 'destroy'])->name('login.destroy');
 
@@ -74,9 +54,6 @@ Route::delete('/admin/login', [AdminLoginController::class, 'destroy'])->name('a
 
 // 管理ログイン後のみアクセス可
 Route::middleware('auth:admin')->group(function () {
-//    Route::get('/admin', function () {
-//        return view('admin.top');
-//    })->name('admin.top');
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');//一覧表示
     Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit'); //編集画面の表示
@@ -93,9 +70,7 @@ Route::middleware('auth:users')->group(function () {
     Route::put('/user/dashboard/{id}', [TaskController::class, 'userUpdate'])->name('user.dashboard.update'); //登録内容の編集
     Route::match(['get', 'post'],'/user/dashboard/store', [TaskController::class, 'userStore'])->name('user.dashboard.store'); //新規登録
     Route::delete('/user/dashboard/{id}/delete', [TaskController::class, 'userDestroy'])->name('user.dashboard.destroy'); // ソフトデリート
-//    Route::get('/admin', function () {
-//        return view('admin.top');
-//    })->name('admin.top');
+
 });
 
 require __DIR__.'/auth.php';

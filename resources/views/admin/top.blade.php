@@ -31,10 +31,11 @@
             <h1>業務進捗ダッシュボード</h1>
             <h2>ようこそ {{ $users->name }} さん</h2>
         </div>
-        @if (session('success'))
-            <p style="color: green;">{{ session('success') }}</p>
-        @endif
-
+        <div class="success">
+            @if (session('success'))
+                <p style="color: green;" class="success_message">{{ session('success') }}</p>
+            @endif
+        </div>
     </div>
 </header>
 <!--メイン-->
@@ -50,12 +51,12 @@
                         <form method="POST" action="{{ route('login.destroy') }}">
                             @method('DELETE')
                             @csrf
-                            <button type="submit">ログアウト</button>
+                            <button type="submit" class="button back">ログアウト</button>
                         </form>
-                        <div class="button_area">
+                        <div class="new_button">
                             <!--            検索画面遷移用ボタン-->
                             <div class="edit_button">
-                                <a href="{{ route('user.dashboard.store') }}">タスク新規登録</a>
+                                <a href="{{ route('user.dashboard.store') }}" class="button register">タスク新規登録</a>
                             </div>
                         </div>
                     </div>

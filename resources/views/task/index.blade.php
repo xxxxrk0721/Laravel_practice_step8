@@ -17,10 +17,11 @@
         <div class="tsk_tittle">
             <h1>業務進捗ダッシュボード(管理者用)</h1>
         </div>
-        @if (session('success'))
-            <p style="color: green;">{{ session('success') }}</p>
-        @endif
-
+        <div class="success">
+            @if (session('success'))
+                <p style="color: green;" class="success_message">{{ session('success') }}</p>
+            @endif
+        </div>
     </div>
 </header>
 <!--メイン-->
@@ -37,12 +38,12 @@
                         <form method="POST" action="{{ route('admin.login.destroy') }}">
                             @method('DELETE')
                             @csrf
-                            <button type="submit">ログアウト</button>
+                            <button type="submit" class="button back">ログアウト</button>
                         </form>
-                        <div class="button_area">
+                        <div class="new_button">
                             <div class="edit_button">
                                 {{--                    <input type="submit" value="タスク登録">--}}
-                                <a href="{{ route('tasks.store') }}">タスク新規登録</a>
+                                <a href="{{ route('tasks.store') }}" class="button register">タスク新規登録</a>
                             </div>
                         </div>
                     </div>
@@ -69,17 +70,22 @@
                         <p>開始日:</p>
                     </div>
                     <input type="date" name="ymd_to" value="{{ request('ymd_to') }}">
-    {{--                <input type="date" name="ymd_to" value="">--}}
                     <div class="ymd_name">
                         <p>終了日:</p>
                     </div>
                     <input type="date" name="ymd_from" value="{{ request('ymd_from') }}">
-    {{--                <input type="date" name="end_ymd_search" value="">--}}
                     <div>
                         <p>ユーザーID</p>
                     </div>
-    {{--                <input type="text" name="user_id" value="">--}}
-                    <input type="text" name="user_id" value="{{ request('user_id') }}" placeholder="ユーザーIDを検索">
+{{--                    <input type="text" name="user_id" value="{{ request('user_id') }}" placeholder="ユーザーIDを検索">--}}
+                    <select name="user_id" id="user_id">
+                        <option value="" {{ request('user_id') == "" ? 'selected' : '' }}>すべてのユーザー</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">
+                                {{ $user->name }} (ID: {{ $user->id }})
+                            </option>
+                        @endforeach
+                    </select>
                     <input type="submit" value="検索">
                 </form>
                 </div>
@@ -87,16 +93,7 @@
             <div class="search_list">
                 <form action="{{ route('tasks.index') }}" method="GET" class="list">
                     @csrf
-                    <div class="button_area">
-                        <!--            検索画面遷移用ボタン-->
-        {{--                <div class="search_button">--}}
-        {{--                    <a href="{{ route('tasks.index') }}">タスク検索</a>--}}
-        {{--                </div>--}}
-        {{--                <div class="edit_button">--}}
-        {{--                    <input type="submit" value="タスク登録">--}}
-        {{--                    <a href="{{ route('tasks.store') }}">タスク新規登録</a>--}}
-        {{--                </div>--}}
-                    </div>
+
                     <table class="task">
                         <tr class="title">
                             <th class="id">項番</th>
