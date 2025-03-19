@@ -34,7 +34,10 @@
                     <div class="mt-4">
                         <x-input-label for="email" :value="__('メールアドレス')" />
                         <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+                        @error('email')
+                        <div class="error-message" style="color: red;">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Password -->
@@ -46,7 +49,10 @@
                                         name="password"
                                         required autocomplete="new-password" />
 
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+{{--                        <x-input-error :messages="$errors->get('password')" class="mt-2" />--}}
+                        @error('password')
+                        <div class="error-message" style="color: red;">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Confirm Password -->
@@ -57,7 +63,10 @@
                                         type="password"
                                         name="password_confirmation" required autocomplete="new-password" />
 
-                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+{{--                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />--}}
+                        @error('password_confirmation')
+                        <div class="error-message" style="color: red;">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 

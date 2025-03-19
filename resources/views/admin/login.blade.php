@@ -28,7 +28,7 @@
                     <div class="form">
                         <div>
                             <label for="email">メールアドレス</label>
-                            <input type="email" id="email" name="email" required />
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" required />
                         </div>
                         <div>
                             <label for="password">パスワード</label>

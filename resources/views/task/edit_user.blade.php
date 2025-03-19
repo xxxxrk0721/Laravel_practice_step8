@@ -26,6 +26,7 @@
         <form action="{{ route('user.dashboard.update',$task->id) }}" method="POST">
             @csrf
             @method('PUT')
+
             <div class="button_area">
                 <div class="nav">
                     <!--            一覧画面遷移用ボタン-->
@@ -40,7 +41,7 @@
             <div class="edit_table">
                 <table class="task">
                     <tr class="title">
-                        <th>項番</th>
+{{--                        <th>項番</th>--}}
                         <th>タスク名称</th>
                         <th>開始日</th>
                         <th>終了日</th>
@@ -49,12 +50,12 @@
                         <th>進捗状況</th>
                     </tr>
                     <tr class="tsk_content">
-                        <td>
-                            <!-- ID を表示（編集不可） -->
-                            <input type="text"  name="id" value="{{ $task->id }}" readonly>
-                            <!-- ID を隠しフィールドとしても送信 -->
-                            <input type="hidden"  name="id_hidden" value="{{ $task->id }}">
-                        </td>
+{{--                        <td>--}}
+{{--                            <!-- ID を表示（編集不可） -->--}}
+{{--                            <input type="text"  name="id" value="{{ $task->id }}" readonly>--}}
+{{--                            <!-- ID を隠しフィールドとしても送信 -->--}}
+{{--                            <input type="hidden"  name="id_hidden" value="{{ $task->id }}">--}}
+{{--                        </td>--}}
                         <td>
                             <input type="text" name="task_name" value="{{ $task->task_name }}">
                         </td>
@@ -89,7 +90,29 @@
             @if (session('success'))
                 <p style="color: green;" class="success_message">{{ session('success') }}</p>
             @endif
+            @if (session('info'))
+                <p style="color: green;" class="success_message">{{ session('info') }}</p>
+            @endif
         </div>
+{{--        @error('task_name')--}}
+{{--        <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--        @enderror--}}
+{{--        @error('task_content')--}}
+{{--        <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--        @enderror--}}
+{{--        @error('ymd_to')--}}
+{{--        <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--        @enderror--}}
+{{--        @error('ymd_from')--}}
+{{--        <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--        @enderror--}}
+        @foreach (['task_name', 'task_content', 'ymd_to', 'ymd_from'] as $field)
+            @error($field)
+            <div class="error-message" style="color: red;">{{ $message }}</div>
+            @enderror
+        @endforeach
+
+
     </div>
 </div>
 <footer>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TaskList;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
@@ -17,10 +18,47 @@ class TaskController extends Controller
     // タスクの一覧・または検索結果を表示
     public function index(Request $request)
     {
+        // 現在ログインしている管理者の ID を取得
+        $adminId = Auth::guard('admin')->id();
+
         $query = DB::table('task_lists')->whereNull('deleted_at');
 
-        // ユーザー一覧を取得（DBに登録されている users.id と users.name）
-        $users = User::select('id', 'name')->get();
+//        // ユーザー一覧を取得（DBに登録されている users.id と users.name）
+////        $users = User::select('id', 'name')->get();
+//        // タスクが1つ以上あるユーザーのみ取得
+//        $users = User::whereHas('TaskList')
+//            ->select('id', 'name')
+//            ->get();
+        // ステータスの取得
+        $status = $request->input('status');
+
+        // ユーザーを取得（未着手のタスクがあるユーザーのみ表示）
+        $usersQuery = User::query();
+
+        if ($status == "1") {
+            // ステータスが「未着手」の場合、未着手のタスクがあるユーザーのみ取得
+            $usersQuery->whereHas('TaskList', function ($query) {
+                $query->where('status', 1);
+            });
+        } elseif ($status == "2") {
+            // ステータスが「対応中」の場合、対応中のタスクがあるユーザーのみ取得
+            $usersQuery->whereHas('TaskList', function ($query) {
+                $query->where('status', 2);
+            });
+        } elseif ($status == "3") {
+            // ステータスが「完了」の場合、完了のタスクがあるユーザーのみ取得
+            $usersQuery->whereHas('TaskList', function ($query) {
+                $query->where('status', 3);
+            });
+        } else {
+            // タスクを持つすべてのユーザーを取得
+            $usersQuery->whereHas('TaskList');
+        }
+
+        $users = $usersQuery->select('id', 'name')->get();
+
+        // 管理者一覧を取得（DBに登録されている admins.name）
+        $admins = Admin::where('id',$adminId)->select('name')->first();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -30,6 +68,15 @@ class TaskController extends Controller
         if ($request->filled('task_name')) {
             $query->where('task_name', 'like', '%' . $request->task_name . '%');
         }
+
+        // 検索キーワードのバリデーション
+        $request->validate([
+            'ymd_from' => 'nullable|date',
+            'ymd_to' => 'nullable|date',
+        ], [
+            'ymd_from.date' => '終了日は正しい日付を入力してください。',
+            'ymd_to.date' => '開始日は正しい日付を入力してください。',
+        ]);
 
         // 検索キーワードが送信された場合（日付で検索）
         if ($request->filled('ymd_to')) {
@@ -47,7 +94,7 @@ class TaskController extends Controller
         }
         $tasks = $query->paginate(10);
         // 検索結果をビューに渡す
-        return view('task.index', compact('tasks','users'));
+        return view('task.index', compact('tasks','users','admins'));
     }
 
     public function userIndex(Request $request)
@@ -71,6 +118,15 @@ class TaskController extends Controller
         if ($request->filled('task_name')) {
             $query->where('task_name', 'like', '%' . $request->task_name . '%');
         }
+
+        // 検索キーワードのバリデーション
+        $request->validate([
+            'ymd_from' => 'nullable|date',
+            'ymd_to' => 'nullable|date',
+        ], [
+            'ymd_from.date' => '終了日は正しい日付を入力してください。',
+            'ymd_to.date' => '開始日は正しい日付を入力してください。',
+        ]);
 
         // 検索キーワードが送信された場合（日付で検索）
         if ($request->filled('ymd_to')) {
@@ -108,8 +164,8 @@ class TaskController extends Controller
             // バリデーション
             $validatedData = $request->validate([
                 'task_name' => 'required|string|max:20',
-                'ymd_to' => 'required',
-                'ymd_from' => 'required',
+                'ymd_to' => 'required|date',
+                'ymd_from' => 'required|date',
                 'task_content' => 'required|string|max:50',
                 'user_id' => 'required',
                 'status' => 'required',
@@ -132,8 +188,8 @@ class TaskController extends Controller
             // バリデーション
             $validatedData = $request->validate([
                 'task_name' => 'required|string|max:20',
-                'ymd_to' => 'required',
-                'ymd_from' => 'required',
+                'ymd_to' => 'required|date',
+                'ymd_from' => 'required|date',
                 'task_content' => 'required|string|max:50',
                 'status' => 'required',
             ]);
@@ -175,34 +231,53 @@ class TaskController extends Controller
         // バリデーション
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:20',
-            'ymd_to' => 'required',
-            'ymd_from' => 'required',
+            'ymd_to' => 'required|date',
+            'ymd_from' => 'required|date',
             'task_content' => 'required|string|max:50',
             'user_id' => 'required',
             'status' => 'required',
         ]);
 
         $task = TaskList::findOrFail($id);  // 指定されたIDのタスクを取得
-        $task->update($validatedData);  // タスクを更新
 
-        return back()->with('success', 'タスクを編集しました。');
+        // データをセット（変更があるか判定するため）
+        $task->fill($validatedData);
+
+        // 変更があるかチェック
+        if ($task->isDirty()) {
+            // 変更がある場合は更新
+            $task->update($validatedData);
+            return back()->with('success', 'タスクを更新しました。');
+        } else {
+            // 変更がない場合はメッセージを表示
+            return back()->with('info', '修正なし。変更がありませんでした。');
+        }
     }
 
     public function userUpdate(Request $request, $id)
     {
+        $task = TaskList::findOrFail($id);  // 指定されたIDのタスクを取得
 
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:20',
-            'ymd_to' => 'required',
-            'ymd_from' => 'required',
+            'ymd_to' => 'required|date',
+            'ymd_from' => 'required|date',
             'task_content' => 'required|string|max:50',
             'status' => 'required',
         ]);
 
-        $task = TaskList::findOrFail($id);  // 指定されたIDのタスクを取得
-        $task->update($validatedData);  // タスクを更新
+        // データをセット（変更があるか判定するため）
+        $task->fill($validatedData);
 
-        return back()->with('success', 'タスクを編集しました。');
+        // 変更があるかチェック
+        if ($task->isDirty()) {
+            // 変更がある場合は更新
+            $task->update($validatedData);
+            return back()->with('success', 'タスクを更新しました。');
+        } else {
+            // 変更がない場合はメッセージを表示
+            return back()->with('info', '修正なし。変更がありませんでした。');
+        }
     }
 
     // タスクを削除

@@ -16,12 +16,18 @@
         <!--            編集画面遷移用ボタン-->
         <div class="tsk_tittle">
             <h1>業務進捗ダッシュボード(管理者用)</h1>
+            <h2>ようこそ {{ $admins->name }} さん</h2>
         </div>
         <div class="success">
             @if (session('success'))
                 <p style="color: green;" class="success_message">{{ session('success') }}</p>
             @endif
         </div>
+        @foreach (['ymd_to', 'ymd_from'] as $field)
+            @error($field)
+            <div class="error-message" style="color: red;">{{ $message }}</div>
+            @enderror
+        @endforeach
     </div>
 </header>
 <!--メイン-->
@@ -81,7 +87,7 @@
                     <select name="user_id" id="user_id">
                         <option value="" {{ request('user_id') == "" ? 'selected' : '' }}>すべてのユーザー</option>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}">
+                            <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
                                 {{ $user->name }} (ID: {{ $user->id }})
                             </option>
                         @endforeach

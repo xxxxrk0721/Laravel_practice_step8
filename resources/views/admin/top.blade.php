@@ -10,18 +10,6 @@
 </head>
 
 <body>
-
-{{--    @auth('admin')--}}
-{{--        <p>管理者ログイン中です。</p>--}}
-{{--    @elseauth('users')--}}
-{{--        <p>ユーザーログイン中です。</p>--}}
-{{--    @endauth--}}
-{{--    <form method="POST" action="{{ route('login.destroy') }}">--}}
-{{--        @method('DELETE')--}}
-{{--        @csrf--}}
-{{--        <button type="submit">ログアウト</button>--}}
-{{--    </form>--}}
-
 <!--ヘッダー-->
 <header>
     <!--        レイアウト調整領域（ヘッダー）-->
@@ -36,6 +24,11 @@
                 <p style="color: green;" class="success_message">{{ session('success') }}</p>
             @endif
         </div>
+        @foreach (['ymd_to', 'ymd_from'] as $field)
+            @error($field)
+            <div class="error-message" style="color: red;">{{ $message }}</div>
+            @enderror
+        @endforeach
     </div>
 </header>
 <!--メイン-->
@@ -97,7 +90,7 @@
 
                     <table class="task">
                         <tr class="title">
-                            <th class="id">項番</th>
+{{--                            <th class="id">項番</th>--}}
                             <th class="tsk_nm">タスク名称</th>
                             <th class="start">開始日▼▲</th>
                             <th class="end">終了日▼▲</th>
@@ -109,7 +102,7 @@
 
                             <tr class="tsk_content">
                                 <!-- idの表示 -->
-                                <td class="id">{{ $row->id }}</td>
+{{--                                <td class="id">{{ $row->id }}</td>--}}
 
                                 <!-- task_nameの表示 -->
                                 <td class="tsk_nm">{{ $row->task_name }}</td>
@@ -141,7 +134,7 @@
 
                                 </td>
                                 <td>
-                                    <a href="{{ route('user.dashboard.edit',['id' => $row->id])  }}">編集</a>
+                                    <a href="{{ route('user.dashboard.edit',['id' => $row->id])  }}" class="table-btn">編集</a>
                                 </td>
                             </tr>
 

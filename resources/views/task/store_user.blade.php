@@ -26,6 +26,23 @@
         </div>
         <form action="{{ route('user.dashboard.store') }}" method="POST">
             @csrf
+{{--            @error('task_name')--}}
+{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--            @enderror--}}
+{{--            @error('task_content')--}}
+{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--            @enderror--}}
+{{--            @error('ymd_to')--}}
+{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--            @enderror--}}
+{{--            @error('ymd_from')--}}
+{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
+{{--            @enderror--}}
+            @foreach (['task_name', 'task_content', 'ymd_to', 'ymd_from'] as $field)
+                @error($field)
+                <div class="error-message" style="color: red;">{{ $message }}</div>
+                @enderror
+            @endforeach
             <div class="button_area">
                 <div class="nav">
                     <div class="allnemu_button">
