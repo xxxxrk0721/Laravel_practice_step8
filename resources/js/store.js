@@ -1,7 +1,7 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-import '../sass/app.scss';
+import '../sass/store.scss';
 
 // // ページごとに異なるSCSSを適用
 // const page = document.body.dataset.page; // 各 Blade に `data-page` を設定

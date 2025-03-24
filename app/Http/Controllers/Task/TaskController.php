@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class TaskController extends Controller
@@ -32,7 +33,7 @@ class TaskController extends Controller
         // ステータスの取得
         $status = $request->input('status');
 
-        // ユーザーを取得（未着手のタスクがあるユーザーのみ表示）
+        // ユーザーを取得
         $usersQuery = User::query();
 
         if ($status == "1") {
@@ -296,4 +297,66 @@ class TaskController extends Controller
 
         return redirect()->route('user.dashboard')->with('success', 'タスクを削除しました');  // タスク一覧にリダイレクト
     }
+
+    public function userUpdateStatus(Request $request)
+    {
+        Log::debug('リクエスト受信:', $request->all());
+
+        $task = TaskList::where('id', $request->task_id)->first();
+        Log::debug('取得したタスク:', ['task' => $task]);
+
+        if (!$task) {
+            return response()->json(['error' => 'タスクが見つかりません'], 404);
+        }
+
+        $task->status = $request->status;
+        $task->save();
+
+        return response()->json(['message' => 'ステータスを更新しました', 'status' => $task->status]);
+    }
+
+    public function UpdateStatus(Request $request)
+    {
+        Log::debug('リクエスト受信:', $request->all());
+
+        $task = TaskList::where('id', $request->task_id)->first();
+        Log::debug('取得したタスク:', ['task' => $task]);
+
+        if (!$task) {
+            return response()->json(['error' => 'タスクが見つかりません'], 404);
+        }
+
+        $task->status = $request->status;
+        $task->save();
+
+        return response()->json(['message' => 'ステータスを更新しました', 'status' => $task->status]);
+    }
+
+    public function deletedList()
+    {
+        $deletedTasks = TaskList::onlyTrashed()->get();
+        // ユーザーを取得
+        $users = User::select('id', 'name')->get();
+
+        return view('task.deleted', compact('deletedTasks','users'));
+    }
+
+    public function restore($id)
+    {
+        $task = TaskList::onlyTrashed()->findOrFail($id);
+        $task->restore();
+
+        return redirect()->back()->with('success', 'タスクを復元しました');
+    }
+
+    public function forceDelete($id)
+    {
+        $task = TaskList::onlyTrashed()->findOrFail($id);
+        $task->forceDelete();
+
+        return redirect()->back()->with('success', 'タスクを完全に削除しました');
+    }
+
+
+
 }

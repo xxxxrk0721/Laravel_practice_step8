@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/js/app.js'])
+{{--    @vite(['resources/js/app.js'])--}}
+    @vite(['resources/js/store.js'])
     <title>Document</title>
 </head>
 <body>
@@ -26,18 +27,6 @@
         </div>
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
-{{--            @error('task_name')--}}
-{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
-{{--            @enderror--}}
-{{--            @error('task_content')--}}
-{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
-{{--            @enderror--}}
-{{--            @error('ymd_to')--}}
-{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
-{{--            @enderror--}}
-{{--            @error('ymd_from')--}}
-{{--            <div class="error-message" style="color: red;">{{ $message }}</div>--}}
-{{--            @enderror--}}
             @foreach (['task_name', 'task_content', 'ymd_to', 'ymd_from'] as $field)
                 @error($field)
                 <div class="error-message" style="color: red;">{{ $message }}</div>
@@ -53,7 +42,6 @@
             <div class="edit_table">
                 <table class="task">
                     <tr class="title">
-{{--                        <th>項番</th>--}}
                         <th>タスク名称</th>
                         <th>開始日</th>
                         <th>終了日</th>
@@ -63,19 +51,19 @@
                         <th>登録ボタン</th>
                     </tr>
                     <tr class="tsk_content">
-                        <td>
+                        <td data-label="タスク名称">
                             <input type="text" name="task_name" placeholder="タスク名称を入力してください" required>
                         </td>
-                        <td>
+                        <td data-label="開始日">
                             <input type="date" name="ymd_to" required>
                         </td>
-                        <td>
+                        <td data-label="終了日">
                             <input type="date" name="ymd_from" required>
                         </td>
-                        <td>
+                        <td data-label="内容">
                             <input type="text" name="task_content" placeholder="タスクの詳細を入力してください" required>
                         </td>
-                        <td>
+                        <td data-label="ユーザーID">
                             <select name="user_id" id="user_id" required>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">
@@ -84,14 +72,14 @@
                                 @endforeach
                             </select>
                         </td>
-                        <td>
+                        <td data-label="進捗状況">
                             <select name="status">
                                 <option value=1 >未着手</option>
                                 <option value=2 >対応中</option>
                                 <option value=3 >完了</option>
                             </select>
                         </td>
-                        <td>
+                        <td data-label="登録ボタン">
                             <button type="submit">登録</button>
                         </td>
                     </tr>

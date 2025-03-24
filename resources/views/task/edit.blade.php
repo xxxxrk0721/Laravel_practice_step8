@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>編集・削除画面</title>
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/edit.js'])
 </head>
 <body>
 <!--ヘッダー-->
@@ -49,26 +49,25 @@
                         <th>進捗状況</th>
                     </tr>
                     <tr class="tsk_content">
-                        <td>
+                        <td data-label="ID">
                             <!-- ID を表示（編集不可） -->
                             <input type="text"  name="id" value="{{ $task->id }}" readonly>
                             <!-- ID を隠しフィールドとしても送信 -->
                             <input type="hidden"  name="id_hidden" value="{{ $task->id }}">
                         </td>
-                        <td>
+                        <td data-label="タスク名">
                             <input type="text" name="task_name" value="{{ $task->task_name }}">
                         </td>
-                        <td>
+                        <td data-label="開始日">
                             <input type="date" name="ymd_to" value="{{ $task->ymd_to }}">
                         </td>
-                        <td>
+                        <td data-label="終了日">
                             <input type="date" name="ymd_from" value="{{ $task->ymd_from }}">
                         </td>
-                        <td>
+                        <td data-label="タスク内容">
                             <input type="text" name="task_content" value="{{ $task->task_content }}">
                         </td>
-                        <td>
-{{--                            <input type="text" name="user_id" value="{{ $task->user_id }}">--}}
+                        <td data-label="ユーザーID">
                             <select name="user_id" id="user_id" required>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}" {{ $task->user_id == $user->id ? 'selected' : '' }}>
@@ -77,8 +76,7 @@
                                 @endforeach
                             </select>
                         </td>
-                        <td>
-    {{--                        <input type="text" value="{{ $task->status }}">--}}
+                        <td data-label="ステータス">
                             <select name="status">
     {{--                            @dd($tsk);--}}
                                 <option value=1 {{ $task->status == 1 ? 'selected' : '' }}>未着手</option>

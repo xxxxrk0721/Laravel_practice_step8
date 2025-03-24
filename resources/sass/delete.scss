@@ -1,0 +1,140 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+
+    .header_inner {
+        width: 80%;
+        margin: 0 auto;
+
+        .tsk_tittle {
+            h1 {
+                text-align: center;
+            }
+        }
+    }
+}
+
+.main {
+    width: 100%;
+
+    .main_inner {
+        width: 80%;
+        margin: 0 auto;
+
+        .search {
+            .nav {
+            //    width: 100%;
+                .allnemu_button {
+                    /* ボタンの共通スタイル */
+                    .button {
+                        display: inline-block;
+                        padding: 7px 23px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-align: center;
+                        text-decoration: none;
+                        color: #fff; /* 文字色 */
+                        background-color: #28a745; /* 緑系で親しみやすい色 */
+                        border-radius: 30px; /* 丸みをつける */
+                        border: 2px solid transparent; /* 初期の枠線を透明に */
+                        box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
+                        cursor: pointer;
+                    }
+
+                    /* ホバー時のアニメーション */
+                    .button:hover {
+                        background-color: #218838; /* 濃い緑 */
+                        transform: translateY(-3px); /* 少し浮かせる */
+                        box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
+                    }
+
+                    /* 「トップページへ戻る」ボタン（やや控えめ） */
+                    .button.back {
+                        background-color: #6c757d; /* 落ち着いたグレー */
+                    }
+
+                    .button.back:hover {
+                        background-color: #545b62; /* ホバー時に少し濃く */
+                    }
+                }
+            }
+        }
+        .search_list {
+            margin-top: 20px;
+            width: 100%;
+            .list {
+
+                .task {
+                    border-collapse: collapse; /* セルの境界線を統一 */
+                    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
+                    width: 100%;
+                    table-layout: fixed; /* 列幅を自動で縮める */
+                    word-break: break-word;
+
+                    th, td {
+                        padding: 10px;
+                        border: 1px solid #8c9cb0;
+                        text-align: center;
+                    }
+
+                    th {
+                        background-color: #bbcde5;
+                    }
+
+                    td {
+                        word-break: break-word;     /* 単語の途中でも折り返す */
+                        overflow-wrap: break-word;  /* 長い英単語も折り返す */
+                        white-space: normal;        /* 折り返し有効 */
+
+                        input,select,button {
+                            max-width: 100%;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header_inner {
+        width: 100% !important;
+    }
+
+    .main {
+        .main_inner {
+            width: 100%;
+        }
+    }
+
+    .task {
+
+        th {
+            display: none; /* ヘッダーは非表示 */
+        }
+
+        tr {
+            display: block;
+        }
+
+        td {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        td::before {
+            content: attr(data-label); /* ヘッダー名を表示 */
+            font-weight: bold;
+        }
+    }
+}

@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+{{--    <meta name="viewport"--}}
+{{--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/admin_index.js'])
     <title>タスク管理一覧</title>
 </head>
 <body>
@@ -52,47 +53,59 @@
                                 <a href="{{ route('tasks.store') }}" class="button register">タスク新規登録</a>
                             </div>
                         </div>
+                        <div class="delete_button">
+                            <div class="edit_button">
+                                {{--                    <input type="submit" value="タスク登録">--}}
+                                <a href="{{ route('tasks.deletedList') }}" class="button delete">削除済一覧</a>
+                            </div>
+                        </div>
+                        <div class="humburger_btn">
+                            <button class="menu_button">☰</button> <!-- ハンバーガーメニュー -->
+                        </div>
                     </div>
                 </div>
                 <div class="search_area">
                 <form action="{{ route('tasks.index') }}" method="GET" class="search_form">
                     @csrf
-                    <div class="status_name">
-                        <p>ステータス:</p>
+                    <div class="search_box">
+                        <div class="status_name">
+                            ステータス:
+                            <select name="status">
+                                <option value="">すべてのステータス</option>
+                                <option value=1 {{ request('status') == "1" ? 'selected' : '' }}>未着手</option>
+                                <option value=2 {{ request('status') == "2" ? 'selected' : '' }}>対応中</option>
+                                <option value=3 {{ request('status') == "3" ? 'selected' : '' }}>完了</option>
+                            </select>
+                        </div>
+                        <!--                タスク名検索-->
+                        <div class="tsk_name">
+                            タスク名称:
+                            <input type="text" name="task_name" value="{{ request('task_name') }}" placeholder="タスク名を検索">
+                        </div>
+                            <!--                日付検索-->
+                        <div class="ymd_name">
+                            開始日:
+                            <input type="date" name="ymd_to" value="{{ request('ymd_to') }}">
+                        </div>
+                        <div class="ymd_name">
+                            終了日:
+                            <input type="date" name="ymd_from" value="{{ request('ymd_from') }}">
+                        </div>
+                        <div>
+                            ユーザーID
+
+    {{--                    <input type="text" name="user_id" value="{{ request('user_id') }}" placeholder="ユーザーIDを検索">--}}
+                            <select name="user_id" id="user_id">
+                                <option value="" {{ request('user_id') == "" ? 'selected' : '' }}>すべてのユーザー</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                        {{ $user->name }} (ID: {{ $user->id }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="submit" value="検索" class="submit_button">
                     </div>
-                    <select name="status">
-                        <option value="">すべてのステータス</option>
-                        <option value=1 {{ request('status') == "1" ? 'selected' : '' }}>未着手</option>
-                        <option value=2 {{ request('status') == "2" ? 'selected' : '' }}>対応中</option>
-                        <option value=3 {{ request('status') == "3" ? 'selected' : '' }}>完了</option>
-                    </select>
-                    <!--                タスク名検索-->
-                    <div class="tsk_name">
-                        <p>タスク名称:</p>
-                    </div>
-                    <input type="text" name="task_name" value="{{ request('task_name') }}" placeholder="タスク名を検索">
-                    <!--                日付検索-->
-                    <div class="ymd_name">
-                        <p>開始日:</p>
-                    </div>
-                    <input type="date" name="ymd_to" value="{{ request('ymd_to') }}">
-                    <div class="ymd_name">
-                        <p>終了日:</p>
-                    </div>
-                    <input type="date" name="ymd_from" value="{{ request('ymd_from') }}">
-                    <div>
-                        <p>ユーザーID</p>
-                    </div>
-{{--                    <input type="text" name="user_id" value="{{ request('user_id') }}" placeholder="ユーザーIDを検索">--}}
-                    <select name="user_id" id="user_id">
-                        <option value="" {{ request('user_id') == "" ? 'selected' : '' }}>すべてのユーザー</option>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }} (ID: {{ $user->id }})
-                            </option>
-                        @endforeach
-                    </select>
-                    <input type="submit" value="検索">
                 </form>
                 </div>
             </div>
@@ -132,19 +145,12 @@
 
                             <!-- statusの表示 -->
                             <td class="state">
-                                @switch($row->status)
-                                    @case(1)
-                                        未着手
-                                        @break
-                                    @case(2)
-                                        対応中
-                                        @break
-                                    @case(3)
-                                        完了
-                                        @break
-                                    @default
-                                        不明
-                                @endswitch
+                                <select class="status-select" data-task-id="{{ $row->id }}">
+
+                                    <option value="1" {{ $row->status == 1 ? 'selected' : '' }}>未着手</option>
+                                    <option value="2" {{ $row->status == 2 ? 'selected' : '' }}>対応中</option>
+                                    <option value="3" {{ $row->status == 3 ? 'selected' : '' }}>完了</option>
+                                </select>
 
                             </td>
                             <td class="user_id">
@@ -205,6 +211,43 @@
         });
         document.querySelector(".end").addEventListener("click", function () {
             sortTable("end");
+        });
+    });
+
+    // ステータスの更新
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.status-select').forEach(select => {
+            select.addEventListener('change', function () {
+                let taskId = this.getAttribute('data-task-id');
+                let newStatus = this.value;
+
+                fetch("{{ route('tasks.updateStatus') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        task_id: taskId,
+                        status: newStatus
+                    })
+                })
+                    .then(response => response.json())
+                    // .then(response => response.text())
+                    .then(data => {
+                        console.log(data); // ← 一度確認！
+                        alert(data.message);
+                    })
+                    .catch(error => console.error("Error:", error));
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuButton = document.querySelector(".menu_button");
+        const searchArea = document.querySelector(".search_area");
+
+        menuButton.addEventListener("click", function() {
+            searchArea.classList.toggle("active"); // クラスの追加・削除で表示を切り替え
         });
     });
 </script>

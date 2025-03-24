@@ -1,0 +1,454 @@
+
+ //トップページ
+.antialiased {
+    background-color: #f8f9fa;
+    margin: 0;
+
+    .welcome_page {
+        height: 100vh; /* 画面の高さを100%にする */
+
+        .welcome_title {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 50%;
+        }
+
+        .welcome_nav {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 50%;
+            a {
+                display: block;
+                padding: 10px;
+            }
+            /* ボタンの共通スタイル */
+            .button {
+                display: inline-block;
+                padding: 12px 24px;
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                text-decoration: none;
+                color: #fff; /* 文字色 */
+                background-color: #007bff; /* ボタンの背景色 */
+                border-radius: 8px; /* 角を丸くする */
+                //transition: all 0.3s ease-in-out;
+                border: 2px solid transparent; /* 枠線を透明に */
+                box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
+            }
+
+            /* ホバー時のアニメーション */
+            .button:hover {
+                background-color: #0056b3; /* 濃い青 */
+                transform: translateY(-2px); /* 少し浮かせる */
+                box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            /* ボタンの色違い（管理者用） */
+            .button.admin {
+                background-color: #dc3545; /* 赤系 */
+            }
+
+            .button.admin:hover {
+                background-color: #a71d2a; /* 濃い赤 */
+            }
+        }
+    }
+}
+
+// ログイン画面
+
+.login {
+    width: 100%;
+    .login_inner {
+        width: 70%;
+        text-align: center;
+        margin: 0 auto;
+        .nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            align-items: center;
+            height: 100%;
+
+            div {
+                width: 100%;
+                height: 100%;
+                /* ボタンの共通スタイル */
+                .button {
+                    width: 55%;
+                    display: inline-block;
+                    padding: 12px 24px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-align: center;
+                    text-decoration: none;
+                    color: #fff; /* 文字色 */
+                    background-color: #28a745; /* 緑系で親しみやすい色 */
+                    border-radius: 30px; /* 丸みをつける */
+                    //transition: all 0.3s ease-in-out;
+                    border: 2px solid transparent; /* 初期の枠線を透明に */
+                    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
+                    cursor: pointer;
+                }
+
+                /* ホバー時のアニメーション */
+                .button:hover {
+                    background-color: #218838; /* 濃い緑 */
+                    transform: translateY(-3px); /* 少し浮かせる */
+                    box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
+                }
+
+                /* 「新規登録」用ボタン（強調） */
+                .button.register {
+                    background-color: #007bff; /* ユーザー向けに優しい青色 */
+                }
+
+                .button.register:hover {
+                    background-color: #0056b3; /* ホバー時に濃い青 */
+                }
+
+                /* 管理者用ボタン */
+                .button.admin {
+                    background-color: #dc3545;
+                }
+
+                .button.admin:hover {
+                    background-color: #a71d2a; /* ホバー時にさらに濃く */
+                    transform: translateY(-2px);
+                    box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
+                }
+
+                /* 「トップページへ戻る」ボタン（やや控えめ） */
+                .button.back {
+                    background-color: #6c757d; /* 落ち着いたグレー */
+                }
+
+                .button.back:hover {
+                    background-color: #545b62; /* ホバー時に少し濃く */
+                }
+            }
+        }
+
+        .access_form {
+            form {
+
+                /* フォーム全体のデザイン */
+                .form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px; /* 入力欄の間隔 */
+                    width: 100%;
+                    max-width: 400px; /* フォームの最大幅 */
+                    padding: 20px;
+                    background-color: #f8f9fa; /* 背景色 */
+                    border-radius: 10px;
+                    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+                    margin: 0 auto;
+                }
+
+                /* ラベル（入力欄のテキスト） */
+                .form label {
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #333;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+
+                /* 入力欄（メール & パスワード） */
+                .form input {
+                    width: 80%;
+                    padding: 12px;
+                    font-size: 16px;
+                    border: 1px solid #ced4da;
+                    border-radius: 8px; /* 角丸 */
+                    outline: none;
+                    //transition: all 0.3s ease-in-out;
+                }
+
+                /* フォーカス時（選択時のエフェクト） */
+                .form input:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+                }
+
+                /* ログインボタン */
+                .button.login {
+                    width: 100%;
+                    padding: 12px 24px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #fff;
+                    background-color: #868e96; /* 落ち着いたグレー */
+                    border: 1px solid #868e96;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    //transition: all 0.3s ease-in-out;
+                }
+
+                /* ホバー時 */
+                .button.login:hover {
+                    background-color: #757d85;
+                }
+
+                /* クリック時 */
+                .button.login:active {
+                    transform: translateY(1px);
+                }
+
+                .login_button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 44%;
+                    margin: 30px auto;
+
+                    /* シンプルなログインボタン */
+                    .button.login {
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #6c757d;
+                        background-color: #fff; /* 控えめなグレー */
+                        border: 1px solid #6c757d; /* ボーダーを加えてデフォルト感を出す */
+                        border-radius: 5px; /* 角を少し丸くする */
+                        cursor: pointer;
+                        //transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+                    }
+
+                    /* ホバー時（わずかに色を変える） */
+                    .button.login:hover {
+                        background-color: #adb5bd;
+                    }
+
+                    /* クリック時（軽く沈む） */
+                    .button.login:active {
+                        transform: translateY(1px);
+                    }
+                }
+            }
+        }
+
+        a {
+            color: black;
+        }
+
+    }
+}
+
+//
+//// 新規登録画面
+.register {
+    width: 100%;
+    .register_inner {
+        width: 70%;
+        text-align: center;
+        margin: 0 auto;
+        .nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+
+            div {
+                //margin-left: 20px;
+                /* ボタンの共通スタイル */
+                .button {
+                    display: inline-block;
+                    padding: 12px 24px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-align: center;
+                    text-decoration: none;
+                    color: #fff; /* 文字色 */
+                    background-color: #28a745; /* 緑系で親しみやすい色 */
+                    border-radius: 30px; /* 丸みをつける */
+                    //transition: all 0.3s ease-in-out;
+                    border: 2px solid transparent; /* 初期の枠線を透明に */
+                    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
+                    cursor: pointer;
+                }
+
+                /* ホバー時のアニメーション */
+                .button:hover {
+                    background-color: #218838; /* 濃い緑 */
+                    transform: translateY(-3px); /* 少し浮かせる */
+                    box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
+                }
+
+                /* 「トップページへ戻る」ボタン（やや控えめ） */
+                .button.back {
+                    background-color: #6c757d; /* 落ち着いたグレー */
+                }
+
+                .button.back:hover {
+                    background-color: #545b62; /* ホバー時に少し濃く */
+                }
+
+            }
+        }
+
+        .access_form {
+            width: 100%;
+            form {
+                /* フォーム全体のデザイン */
+                .form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px; /* 入力欄の間隔 */
+                    width: 100%;
+                    max-width: 400px; /* フォームの最大幅 */
+                    padding: 20px;
+                    background-color: #f8f9fa; /* 背景色 */
+                    border-radius: 10px;
+                    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+                    margin: 0 auto;
+                    //justify-content: center;
+                }
+
+                /* ラベル（入力欄のテキスト） */
+                .form label {
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #333;
+                    display: block;
+                    margin-bottom: 5px;
+                    text-align: center;
+                }
+
+                /* 入力欄（メール & パスワード） */
+                .form input {
+                    width: 90%;
+                    padding: 12px;
+                    font-size: 16px;
+                    border: 1px solid #ced4da;
+                    border-radius: 8px; /* 角丸 */
+                    outline: none;
+                    //transition: all 0.3s ease-in-out;
+                }
+
+                /* フォーカス時（選択時のエフェクト） */
+                .form input:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+                }
+
+                .login_button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 30px auto;
+                    width: 50%;
+
+                    /* シンプルなログインボタン */
+                    .button.login {
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #6c757d;
+                        background-color: #fff; /* 控えめなグレー */
+                        border: 1px solid #6c757d; /* ボーダーを加えてデフォルト感を出す */
+                        border-radius: 5px; /* 角を少し丸くする */
+                        cursor: pointer;
+                        //transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+                    }
+
+                    /* ホバー時（わずかに色を変える） */
+                    .button.login:hover {
+                        background-color: #adb5bd;
+                    }
+
+                    /* クリック時（軽く沈む） */
+                    .button.login:active {
+                        transform: translateY(1px);
+                    }
+                }
+            }
+        }
+
+        a {
+            color: black;
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    body {
+        margin: 0;
+    }
+
+    .login {
+        .login_inner {
+            width: 100%;
+
+            .nav {
+                padding: 0;
+
+                div {
+                    .button {
+                        width: 70%;
+                        font-size: 13px;
+                    }
+                }
+            }
+
+            .access_form {
+                form {
+                    .form {
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .register {
+        .register_inner {
+            width: 100%;
+
+            .nav {
+                padding-bottom: 10px;
+
+                div {
+                    .button {
+                        width: 70%;
+                        font-size: 13px;
+                    }
+                }
+            }
+
+            .access_form {
+                form {
+                    .form {
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .antialiased {
+        width: 100%;
+        .welcome_page {
+            width: 100%;
+            .welcome_nav {
+                display: block !important;
+                width: 80%;
+                margin: 0 auto;
+
+                a {
+                    display: block !important;
+                    margin: 0 auto !important;
+                    width: 50%;
+                }
+
+            }
+        }
+    }
+}
+
+

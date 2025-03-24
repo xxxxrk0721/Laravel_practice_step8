@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,11 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update'); //登録内容の編集
     Route::match(['get', 'post'],'/tasks/store', [TaskController::class, 'store'])->name('tasks.store'); //新規登録
     Route::delete('/tasks/{id}/delete', [TaskController::class, 'destroy'])->name('tasks.destroy'); // ソフトデリート
-
+    Route::post('/tasks/update-status', [TaskController::class, 'UpdateStatus'])->name('tasks.updateStatus'); // ステータスの更新
+    Route::get('/tasks/deletedList', [TaskController::class, 'deletedList'])->name('tasks.deletedList'); // ステータスの更新
+    Route::post('/tasks/{id}/restore', [TaskController::class, 'restore'])->name('tasks.restore');
+    Route::post('/tasks/{id}/force-delete', [TaskController::class, 'forceDelete'])->name('tasks.forceDelete');
+    Route::resource('users', UserController::class);
 });
 
 // ユーザーログイン後のみアクセス可
@@ -70,6 +75,7 @@ Route::middleware('auth:users')->group(function () {
     Route::put('/user/dashboard/{id}', [TaskController::class, 'userUpdate'])->name('user.dashboard.update'); //登録内容の編集
     Route::match(['get', 'post'],'/user/dashboard/store', [TaskController::class, 'userStore'])->name('user.dashboard.store'); //新規登録
     Route::delete('/user/dashboard/{id}/delete', [TaskController::class, 'userDestroy'])->name('user.dashboard.destroy'); // ソフトデリート
+    Route::post('/user/dashboard/update-status', [TaskController::class, 'userUpdateStatus'])->name('user.dashboard.updateStatus'); // ステータスの更新
 
 });
 
