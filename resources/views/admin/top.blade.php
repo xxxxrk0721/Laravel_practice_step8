@@ -107,52 +107,45 @@
                             <th class="state">進捗状況</th>
                             <th class="user_id">編集ボタン</th>
                         </tr>
-                        @foreach ($tasks as $row)
+                        @if ($tasks->count() > 0)
+                            @foreach ($tasks as $row)
 
-                            <tr class="tsk_content">
-                                <!-- idの表示 -->
-                                <!-- task_nameの表示 -->
-                                <td class="tsk_nm">{{ $row->task_name }}</td>
+                                <tr class="tsk_content
+                                    @if($row->due_status === 'overdue' && $row->status <> 3) overdue
+                                    @elseif($row->due_status === 'near' && $row->status <> 3) near-deadline
+                                    @endif">
+                                    <!-- idの表示 -->
+                                    <!-- task_nameの表示 -->
+                                    <td class="tsk_nm task-name" data-label="タスク名">{{ $row->task_name }}</td>
 
-                                <!-- ymd_toの表示 -->
-                                <td class="start">{{ $row->ymd_to }}</td>
+                                    <!-- ymd_toの表示 -->
+                                    <td class="start detail" data-label="開始日">{{ $row->ymd_to }}</td>
 
-                                <!-- ymd_fromの表示 -->
-                                <td class="end">{{ $row->ymd_from }}</td>
+                                    <!-- ymd_fromの表示 -->
+                                    <td class="end detail" data-label="終了日">{{ $row->ymd_from }}</td>
 
-                                <!-- task_contentの表示 -->
-                                <td class="tsk">{{ $row->task_content }}</td>
+                                    <!-- task_contentの表示 -->
+                                    <td class="tsk detail" data-label="タスク内容">{{ $row->task_content }}</td>
 
-                                <!-- statusの表示 -->
-                                <td class="status">
-{{--                                    @switch($row->status)--}}
-{{--                                        @case(1)--}}
-{{--                                            未着手--}}
-{{--                                            @break--}}
-{{--                                        @case(2)--}}
-{{--                                            対応中--}}
-{{--                                            @break--}}
-{{--                                        @case(3)--}}
-{{--                                            完了--}}
-{{--                                            @break--}}
-{{--                                        @default--}}
-{{--                                            不明--}}
-{{--                                    @endswitch--}}
-{{--                                    @dd($row->id);--}}
-                                    <select class="status-select" data-task-id="{{ $row->id }}">
+                                    <!-- statusの表示 -->
+                                    <td class="status detail" data-label="ステータス">
+                                        <select class="status-select" data-task-id="{{ $row->id }}">
 
-                                        <option value="1" {{ $row->status == 1 ? 'selected' : '' }}>未着手</option>
-                                        <option value="2" {{ $row->status == 2 ? 'selected' : '' }}>対応中</option>
-                                        <option value="3" {{ $row->status == 3 ? 'selected' : '' }}>完了</option>
-                                    </select>
+                                            <option value="1" {{ $row->status == 1 ? 'selected' : '' }}>未着手</option>
+                                            <option value="2" {{ $row->status == 2 ? 'selected' : '' }}>対応中</option>
+                                            <option value="3" {{ $row->status == 3 ? 'selected' : '' }}>完了</option>
+                                        </select>
 
-                                </td>
-                                <td>
-                                    <a href="{{ route('user.dashboard.edit',['id' => $row->id])  }}" class="table-btn">編集</a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="detail" data-label="編集ボタン">
+                                        <a href="{{ route('user.dashboard.edit',['id' => $row->id])  }}" class="table-btn">編集</a>
+                                    </td>
+                                </tr>
 
-                        @endforeach
+                            @endforeach
+                        @else
+                            <p>対象のデータがありません。</p>
+                        @endif
                     </table>
                     {{ $tasks->appends(request()->query())->links('vendor.pagination.default') }}
 
@@ -235,6 +228,15 @@
 
         menuButton.addEventListener("click", function() {
             searchArea.classList.toggle("active"); // クラスの追加・削除で表示を切り替え
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.task-name').forEach(function (taskNameCell) {
+            taskNameCell.addEventListener('click', function () {
+                const row = this.closest('.tsk_content');
+                row.classList.toggle('open');
+            });
         });
     });
 </script>

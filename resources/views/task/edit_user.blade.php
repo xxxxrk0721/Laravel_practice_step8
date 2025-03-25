@@ -22,32 +22,37 @@
 <div class="main">
     <!--        レイアウト調整領域（メイン）-->
     <div class="main_edit_inner">
+        <div class="button_area">
+            <div class="nav">
+                <!--            一覧画面遷移用ボタン-->
+                <div class="allnemu_button">
+                    <a href="{{ route('user.dashboard') }}" class="button back">タスク一覧へ戻る</a>
+                </div>
+                <div class="delete_area">
+                    <form action="{{ route('user.dashboard.destroy', $task->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('このタスクを削除しますか？')" class="button delete">削除</button>
+                    </form>
+                </div>
+{{--                <div class="update_button_user">--}}
+{{--                    <input type="submit" value="更新" class="button update">--}}
+{{--                </div>--}}
+            </div>
+        </div>
         <!--            タスク一覧表示領域-->
         <form action="{{ route('user.dashboard.update',$task->id) }}" method="POST">
             @csrf
             @method('PUT')
-
-            <div class="button_area">
-                <div class="nav">
-                    <!--            一覧画面遷移用ボタン-->
-                    <div class="allnemu_button">
-                        <a href="{{ route('user.dashboard') }}" class="button back">タスク一覧へ戻る</a>
-                    </div>
-                    <div class="update_button_user">
-                        <input type="submit" value="更新" class="button update">
-                    </div>
-                </div>
-            </div>
             <div class="edit_table">
                 <table class="task">
                     <tr class="title">
-{{--                        <th>項番</th>--}}
                         <th>タスク名称</th>
                         <th>開始日</th>
                         <th>終了日</th>
                         <th>内容</th>
-{{--                        <th>ユーザーID</th>--}}
                         <th>進捗状況</th>
+                        <th>更新ボタン</th>
                     </tr>
                     <tr class="tsk_content">
                         <td data-label="タスク名">
@@ -69,17 +74,13 @@
                                 <option value=3 {{ $task->status == 3 ? 'selected' : '' }}>完了</option>
                             </select>
                         </td>
+                        <td data-label="更新ボタン">
+                            <input type="submit" value="更新" class="button update">
+                        </td>
                     </tr>
                 </table>
             </div>
         </form>
-        <div class="delete_area">
-            <form action="{{ route('user.dashboard.destroy', $task->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" onclick="return confirm('このタスクを削除しますか？')" class="button delete">削除</button>
-            </form>
-        </div>
         <div class="success">
             @if (session('success'))
                 <p style="color: green;" class="success_message">{{ session('success') }}</p>

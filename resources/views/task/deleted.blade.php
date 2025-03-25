@@ -59,23 +59,30 @@
                         @foreach ($deletedTasks as $row)
 
                             <tr class="tsk_content">
+                                <td class="mobile_only" data-label="ユーザー名">
+                                    @foreach ($users as $user)
+                                        @if ($row->user_id == $user->id)
+                                            <p>{{ $user->name }} (ID: {{ $user->id }})</p>
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <!-- idの表示 -->
-                                <td class="id" data-label="ID">{{ $row->id }}</td>
+                                <td class="id detail" data-label="ID">{{ $row->id }}</td>
 
                                 <!-- task_nameの表示 -->
-                                <td class="tsk_nm" data-label="タスク名">{{ $row->task_name }}</td>
+                                <td class="tsk_nm detail" data-label="タスク名">{{ $row->task_name }}</td>
 
                                 <!-- ymd_toの表示 -->
-                                <td class="start" data-label="開始日">{{ $row->ymd_to }}</td>
+                                <td class="start detail" data-label="開始日">{{ $row->ymd_to }}</td>
 
                                 <!-- ymd_fromの表示 -->
-                                <td class="end" data-label="終了日">{{ $row->ymd_from }}</td>
+                                <td class="end detail" data-label="終了日">{{ $row->ymd_from }}</td>
 
                                 <!-- task_contentの表示 -->
-                                <td class="tsk" data-label="タスク内容">{{ $row->task_content }}</td>
+                                <td class="tsk detail" data-label="タスク内容">{{ $row->task_content }}</td>
 
                                 <!-- statusの表示 -->
-                                <td class="state" data-label="ステータス">
+                                <td class="state detail" data-label="ステータス">
                                     @switch($row->status)
                                         @case(1)
                                             未着手
@@ -91,20 +98,20 @@
                                     @endswitch
 
                                 </td>
-                                <td class="user_id" data-label="ユーザーID">
+                                <td class="user_id user_title" data-label="ユーザーID">
                                     @foreach ($users as $user)
                                         @if ($row->user_id == $user->id)
                                             <p>{{ $user->name }} (ID: {{ $user->id }})</p>
                                         @endif
                                     @endforeach
                                 </td>
-                                <td data-label="復元ボタン">
+                                <td class="detail" data-label="復元ボタン">
                                     <form method="POST" action="{{ route('tasks.restore',['id' => $row->id]) }}">
                                         @csrf
                                         <button type="submit">復元</button>
                                     </form>
                                 </td>
-                                <td data-label="完全削除ボタン">
+                                <td class="detail" data-label="完全削除ボタン">
                                     <form method="POST" action="{{ route('tasks.forceDelete',['id' => $row->id]) }}">
                                         @csrf
                                         <button type="submit" onclick="return confirm('完全に削除しますか？')">完全削除</button>
@@ -114,6 +121,7 @@
 
                         @endforeach
                     </table>
+                    {{ $deletedTasks->appends(request()->query())->links('vendor.pagination.default') }}
                 </form>
             </div>
         </div>
@@ -123,5 +131,15 @@
 <footer>
 
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.mobile_only').forEach(function (taskNameCell) {
+            taskNameCell.addEventListener('click', function () {
+                const row = this.closest('.tsk_content');
+                row.classList.toggle('open');
+            });
+        });
+    });
+</script>
 </body>
 </html>

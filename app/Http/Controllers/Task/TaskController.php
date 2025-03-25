@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 
 class TaskController extends Controller
@@ -94,6 +95,19 @@ class TaskController extends Controller
             $query->where('user_id', $request->user_id);
         }
         $tasks = $query->paginate(10);
+
+        foreach ($tasks as $task) {
+            $dueDate = Carbon::parse($task->ymd_from); // 終了日（例）
+            $now = Carbon::now();
+
+            if ($dueDate->isPast()) {
+                $task->due_status = 'overdue'; // 期限切れ
+            } elseif ($dueDate->diffInDays($now) <= 3) {
+                $task->due_status = 'near'; // 締切間近（3日以内）
+            } else {
+                $task->due_status = 'normal'; // 通常
+            }
+        }
         // 検索結果をビューに渡す
         return view('task.index', compact('tasks','users','admins'));
     }
@@ -143,7 +157,29 @@ class TaskController extends Controller
         if ($request->filled('user_id')) {
             $query->where('user_id', 'like', '%' . $request->user_id . '%');
         }
+
+        // 今日の日付を取得
+        $today = Carbon::today()->format('Y-m-d');
+
+        // 並び替えを追加（期限切れを上に、次に締切が近い順）
+        $query->orderByRaw("CASE WHEN ymd_from < ? AND status <> 3 THEN 0
+                                 ELSE 1 END", [$today])
+            ->orderBy('ymd_from', 'asc');
+
         $tasks = $query->paginate(10);
+
+        foreach ($tasks as $task) {
+            $dueDate = Carbon::parse($task->ymd_from); // 終了日（例）
+            $now = Carbon::now();
+
+            if ($dueDate->isPast()) {
+                $task->due_status = 'overdue'; // 期限切れ
+            } elseif ($dueDate->diffInDays($now) <= 3) {
+                $task->due_status = 'near'; // 締切間近（3日以内）
+            } else {
+                $task->due_status = 'normal'; // 通常
+            }
+        }
         // 検索結果をビューに渡す
         return view('admin.top', compact('tasks','users'));
     }
@@ -334,7 +370,7 @@ class TaskController extends Controller
 
     public function deletedList()
     {
-        $deletedTasks = TaskList::onlyTrashed()->get();
+        $deletedTasks = TaskList::onlyTrashed()->paginate(10);
         // ユーザーを取得
         $users = User::select('id', 'name')->get();
 

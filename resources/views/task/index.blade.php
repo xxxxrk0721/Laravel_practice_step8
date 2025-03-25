@@ -124,54 +124,65 @@
                             <th class="user_id">ユーザー名(ID)</th>
                             <th class="user_id">編集ボタン</th>
                         </tr>
+                        @if ($tasks->count() > 0)
         {{--                @dd($tasks);--}}
-                        @foreach ($tasks as $row)
+                            @foreach ($tasks as $row)
 
-                        <tr class="tsk_content">
-                            <!-- idの表示 -->
-                            <td class="id">{{ $row->id }}</td>
+                            <tr class="tsk_content
+                            @if($row->due_status === 'overdue' && $row->status <> 3) overdue
+                            @elseif($row->due_status === 'near' && $row->status <> 3) near-deadline
+                            @endif">
+                                <td class="mobile_only" data-label="ユーザー名">
+                                    @foreach ($users as $user)
+                                        @if ($row->user_id == $user->id)
+                                            <p>{{ $user->name }} (ID: {{ $user->id }})</p>
+                                        @endif
+                                    @endforeach
+                                </td>
 
-                            <!-- task_nameの表示 -->
-                            <td class="tsk_nm">{{ $row->task_name }}</td>
+                                <!-- idの表示 -->
+                                <td class="id detail" data-label="id">{{ $row->id }}</td>
 
-                            <!-- ymd_toの表示 -->
-                            <td class="start">{{ $row->ymd_to }}</td>
+                                <!-- task_nameの表示 -->
+                                <td class="tsk_nm detail" data-label="タスク名">{{ $row->task_name }}</td>
 
-                            <!-- ymd_fromの表示 -->
-                            <td class="end">{{ $row->ymd_from }}</td>
+                                <!-- ymd_toの表示 -->
+                                <td class="start detail" data-label="開始日">{{ $row->ymd_to }}</td>
 
-                            <!-- task_contentの表示 -->
-                            <td class="tsk">{{ $row->task_content }}</td>
+                                <!-- ymd_fromの表示 -->
+                                <td class="end detail" data-label="終了日">{{ $row->ymd_from }}</td>
 
-                            <!-- statusの表示 -->
-                            <td class="state">
-                                <select class="status-select" data-task-id="{{ $row->id }}">
+                                <!-- task_contentの表示 -->
+                                <td class="tsk detail" data-label="タスク内容">{{ $row->task_content }}</td>
 
-                                    <option value="1" {{ $row->status == 1 ? 'selected' : '' }}>未着手</option>
-                                    <option value="2" {{ $row->status == 2 ? 'selected' : '' }}>対応中</option>
-                                    <option value="3" {{ $row->status == 3 ? 'selected' : '' }}>完了</option>
-                                </select>
+                                <!-- statusの表示 -->
+                                <td class="state detail" data-label="ステータス">
+                                    <select class="status-select" data-task-id="{{ $row->id }}">
 
-                            </td>
-                            <td class="user_id">
-                                @foreach ($users as $user)
-                                    @if ($row->user_id == $user->id)
-                                        <p>{{ $user->name }} (ID: {{ $user->id }})</p>
-                                    @endif
-                                @endforeach
-{{--                                {{ $row->user_id }}--}}
-                            </td>
-                            <td>
-                                <a href="{{ route('tasks.edit',['id' => $row->id])  }}">編集</a>
-                            </td>
-                        </tr>
+                                        <option value="1" {{ $row->status == 1 ? 'selected' : '' }}>未着手</option>
+                                        <option value="2" {{ $row->status == 2 ? 'selected' : '' }}>対応中</option>
+                                        <option value="3" {{ $row->status == 3 ? 'selected' : '' }}>完了</option>
+                                    </select>
 
-                        @endforeach
+                                </td>
+                                <td class="user_id user_title" data-label="ユーザー名">
+                                    @foreach ($users as $user)
+                                        @if ($row->user_id == $user->id)
+                                            <p>{{ $user->name }} (ID: {{ $user->id }})</p>
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td class="detail" data-label="編集ボタン">
+                                    <a href="{{ route('tasks.edit',['id' => $row->id])  }}">編集</a>
+                                </td>
+                            </tr>
+
+                            @endforeach
+                        @else
+                            <p>対象のデータがありません。</p>
+                        @endif
                     </table>
                     {{ $tasks->appends(request()->query())->links('vendor.pagination.default') }}
-        {{--            {{ $tasks->links('vendor.pagination.default') }}--}}
-
-
                 </form>
             </div>
         </div>
@@ -248,6 +259,15 @@
 
         menuButton.addEventListener("click", function() {
             searchArea.classList.toggle("active"); // クラスの追加・削除で表示を切り替え
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.mobile_only').forEach(function (taskNameCell) {
+            taskNameCell.addEventListener('click', function () {
+                const row = this.closest('.tsk_content');
+                row.classList.toggle('open');
+            });
         });
     });
 </script>

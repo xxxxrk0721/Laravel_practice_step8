@@ -225,6 +225,16 @@ main {
     }
 }
 
+.overdue {
+    color: #c00;
+    font-weight: bold;
+}
+
+.near-deadline {
+    color: #c77700;
+    font-weight: bold;
+}
+
 // pagenateレイアウト
 .pagination-container {
     text-align: center;
@@ -312,6 +322,48 @@ main {
                     }
                 }
             }
+        }
+    }
+
+    .task {
+        box-shadow: none !important;
+
+        th {
+            display: none; /* ヘッダーは非表示 */
+        }
+
+        tr {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        td {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border: none !important;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .detail {
+            display: none;
+        }
+
+        .open .detail {
+            display: flex;
+            //flex-direction: column;
+        }
+
+        .task-name {
+            background-color: #eee;
+        }
+
+        td::before {
+            content: attr(data-label); /* ヘッダー名を表示 */
+            font-weight: bold;
         }
     }
 }

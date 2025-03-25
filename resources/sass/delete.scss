@@ -95,11 +95,49 @@ header {
                             max-width: 100%;
                         }
                     }
+
+                    .mobile_only {
+                        display: none;
+                    }
                 }
 
             }
         }
     }
+}
+
+// pagenateレイアウト
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination .active span {
+    background-color: blue;
+    color: white;
+    border-color: blue;
+}
+
+.pagination .disabled span {
+    color: gray;
 }
 
 @media screen and (max-width: 768px) {
@@ -114,6 +152,7 @@ header {
     }
 
     .task {
+        box-shadow: none !important;
 
         th {
             display: none; /* ヘッダーは非表示 */
@@ -121,6 +160,7 @@ header {
 
         tr {
             display: block;
+            margin-bottom: 10px;
         }
 
         td {
@@ -136,5 +176,25 @@ header {
             content: attr(data-label); /* ヘッダー名を表示 */
             font-weight: bold;
         }
+
+        .detail {
+            display: none;
+        }
+
+        .open .detail {
+            display: flex;
+            //flex-direction: column;
+        }
+
+        .user_title {
+            display: none;
+        }
+
+        .mobile_only {
+            background-color: #eee;
+            align-items: center;
+            display: flex !important;
+        }
+
     }
 }
