@@ -377,12 +377,27 @@ class TaskController extends Controller
         return view('task.deleted', compact('deletedTasks','users'));
     }
 
+    // 復元画面を表示
+    public function showRestoreForm($id)
+    {
+        $task = TaskList::withTrashed()->findOrFail($id); // 削除されたタスクも含めて取得
+        return view('task.restore', compact('task')); // 復元画面を表示
+    }
+
     public function restore($id)
     {
         $task = TaskList::onlyTrashed()->findOrFail($id);
         $task->restore();
 
-        return redirect()->back()->with('success', 'タスクを復元しました');
+//        return redirect()->back()->with('success', 'タスクを復元しました');
+        return redirect()->route('tasks.deletedList')->with('success', 'タスクが復元されました');
+    }
+
+    // 完全削除画面を表示
+    public function showForceDelete($id)
+    {
+        $task = TaskList::withTrashed()->findOrFail($id); // 削除されたタスクも含めて取得
+        return view('task.forceDelete', compact('task')); // 復元画面を表示
     }
 
     public function forceDelete($id)
@@ -390,7 +405,8 @@ class TaskController extends Controller
         $task = TaskList::onlyTrashed()->findOrFail($id);
         $task->forceDelete();
 
-        return redirect()->back()->with('success', 'タスクを完全に削除しました');
+//        return redirect()->back()->with('success', 'タスクを完全に削除しました');
+        return redirect()->route('tasks.deletedList')->with('success', 'タスクを完全に削除しました');
     }
 
 

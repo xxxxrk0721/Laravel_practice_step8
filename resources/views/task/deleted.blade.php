@@ -106,16 +106,20 @@
                                     @endforeach
                                 </td>
                                 <td class="detail" data-label="復元ボタン">
-                                    <form method="POST" action="{{ route('tasks.restore',['id' => $row->id]) }}">
-                                        @csrf
-                                        <button type="submit">復元</button>
-                                    </form>
+                                    <a href="{{ route('tasks.restore',['id' => $row->id])  }}">復元</a>
                                 </td>
+{{--                                <td class="detail" data-label="復元ボタン">--}}
+{{--                                    <form method="POST" action="{{ route('tasks.restore',['id' => $row->id]) }}">--}}
+{{--                                        @csrf--}}
+{{--                                        <button type="submit">復元</button>--}}
+{{--                                    </form>--}}
+{{--                                </td>--}}
                                 <td class="detail" data-label="完全削除ボタン">
-                                    <form method="POST" action="{{ route('tasks.forceDelete',['id' => $row->id]) }}">
-                                        @csrf
-                                        <button type="submit" onclick="return confirm('完全に削除しますか？')">完全削除</button>
-                                    </form>
+{{--                                    <form method="POST" action="{{ route('tasks.forceDelete',['id' => $row->id]) }}">--}}
+{{--                                        @csrf--}}
+{{--                                        <button type="submit" onclick="return confirm('完全に削除しますか？')">完全削除</button>--}}
+{{--                                    </form>--}}
+                                    <a href="{{ route('tasks.forceDelete',['id' => $row->id])  }}">完全削除</a>
                                 </td>
                             </tr>
 
@@ -123,6 +127,30 @@
                     </table>
                     {{ $deletedTasks->appends(request()->query())->links('vendor.pagination.default') }}
                 </form>
+{{--                <div class="delete_area">--}}
+{{--                    <table class="task">--}}
+{{--                        <tr class="title">--}}
+{{--                            <th>復元ボタン</th>--}}
+{{--                            <th>完全削除ボタン</th>--}}
+{{--                        </tr>--}}
+{{--                        @foreach ($deletedTasks as $row)--}}
+{{--                        <tr class="tsk_content">--}}
+{{--                            <td class="detail" data-label="復元ボタン">--}}
+{{--                                <form method="POST" action="{{ route('tasks.restore',['id' => $row->id]) }}">--}}
+{{--                                    @csrf--}}
+{{--                                    <button type="submit">復元</button>--}}
+{{--                                </form>--}}
+{{--                            </td>--}}
+{{--                            <td class="detail" data-label="完全削除ボタン">--}}
+{{--                                <form method="POST" action="{{ route('tasks.forceDelete',['id' => $row->id]) }}">--}}
+{{--                                    @csrf--}}
+{{--                                    <button type="submit" onclick="return confirm('完全に削除しますか？')">完全削除</button>--}}
+{{--                                </form>--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        @endforeach--}}
+{{--                    </table>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>

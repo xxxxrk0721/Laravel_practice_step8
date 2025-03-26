@@ -15,6 +15,12 @@
     <body class="antialiased">
 
             <div class="welcome_page">
+                @if (session('success'))
+                    <p style="color: green;" class="success_message">{{ session('success') }}</p>
+                @endif
+                @if (session('error'))
+                    <p style="color: green;" class="error_message">{{ session('error') }}</p>
+                @endif
                 <div class="welcome_title">
                     <h1>業務管理アプリ</h1>
                 </div>

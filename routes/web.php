@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +64,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::delete('/tasks/{id}/delete', [TaskController::class, 'destroy'])->name('tasks.destroy'); // ソフトデリート
     Route::post('/tasks/update-status', [TaskController::class, 'UpdateStatus'])->name('tasks.updateStatus'); // ステータスの更新
     Route::get('/tasks/deletedList', [TaskController::class, 'deletedList'])->name('tasks.deletedList'); // ステータスの更新
-    Route::post('/tasks/{id}/restore', [TaskController::class, 'restore'])->name('tasks.restore');
-    Route::post('/tasks/{id}/force-delete', [TaskController::class, 'forceDelete'])->name('tasks.forceDelete');
+    Route::get('/tasks/{id}/restore', [TaskController::class, 'showRestoreForm'])->name('tasks.restoreForm'); // 復元コンテンツの確認画面
+    Route::post('/tasks/{id}/restore', [TaskController::class, 'restore'])->name('tasks.restore'); // 復元処理
+    Route::get('/tasks/{id}/force-delete', [TaskController::class, 'showForceDelete'])->name('tasks.forceDeleteForm');
+    Route::post('/tasks/{id}/force-delete', [TaskController::class, 'forceDelete'])->name('tasks.forceDelete'); // 完全削除
     Route::resource('users', UserController::class);
 });
 
@@ -78,5 +81,9 @@ Route::middleware('auth:users')->group(function () {
     Route::post('/user/dashboard/update-status', [TaskController::class, 'userUpdateStatus'])->name('user.dashboard.updateStatus'); // ステータスの更新
 
 });
+
+//// google認証用ルート
+//Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
+//Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
 
 require __DIR__.'/auth.php';
