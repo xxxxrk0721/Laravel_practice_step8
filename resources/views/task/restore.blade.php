@@ -13,7 +13,7 @@
 <header>
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-
+        <h2>タスクの復元</h2>
     </div>
 </header>
 <!--メイン-->
@@ -21,10 +21,17 @@
     <div class="main">
         <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
+            <div class="button_area">
+                <div class="nav">
+                    <div class="allnemu_button">
+                        <a href="{{ route('tasks.deletedList') }}" class="button back">削除一覧へ戻る</a>
+                    </div>
+                </div>
+            </div>
             <!--            タスク一覧表示領域-->
             <div class="search_list">
                 <div class="container">
-                    <h2>タスクの復元</h2>
+
 
                     <p>以下のタスクを復元しますか？</p>
 
