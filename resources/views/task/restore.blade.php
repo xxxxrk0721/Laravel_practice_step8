@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/js/delete.js'])
+    @vite(['resources/js/delete_show.js'])
     <title>タスク管理一覧</title>
 </head>
 <body>
@@ -23,9 +23,7 @@
         <div class="main_inner">
             <div class="button_area">
                 <div class="nav">
-                    <div class="allnemu_button">
-                        <a href="{{ route('tasks.deletedList') }}" class="button back">削除一覧へ戻る</a>
-                    </div>
+                    <a href="{{ route('tasks.deletedList') }}" class="button back">削除一覧へ戻る</a>
                 </div>
             </div>
             <!--            タスク一覧表示領域-->
@@ -35,24 +33,36 @@
 
                     <p>以下のタスクを復元しますか？</p>
 
-                    <table>
-                        <tr>
-                            <td>タスク名:</td>
-                            <td>{{ $task->task_name }}</td>
-                        </tr>
-                        <tr>
-                            <td>開始日:</td>
-                            <td>{{ $task->ymd_to }}</td>
-                        </tr>
-                        <tr>
-                            <td>終了日:</td>
-                            <td>{{ $task->ymd_from }}</td>
-                        </tr>
-                        <tr>
-                            <td>内容:</td>
-                            <td>{{ $task->task_content }}</td>
-                        </tr>
-                    </table>
+                    <div class="delete_task">
+                        <dl>
+                            <dt>タスク名</dt>
+                            <dd>{{ $task->task_name }}</dd>
+                            <dt>開始日</dt>
+                            <dd>{{ $task->ymd_to }}</dd>
+                            <dt>終了日</dt>
+                            <dd>{{ $task->ymd_from }}</dd>
+                            <dt>内容</dt>
+                            <dd>{{ $task->task_content }}</dd>
+                            <dt>ステータス</dt>
+                            <dd>
+                                @switch($task->status)
+                                    @case(1)
+                                        未着手
+                                        @break
+                                    @case(2)
+                                        対応中
+                                        @break
+                                    @case(3)
+                                        完了
+                                        @break
+                                    @default
+                                        不明
+                                @endswitch
+                            </dd>
+
+                        </dl>
+
+                    </div>
 
                     <!-- 復元ボタン -->
                     <form method="POST" action="{{ route('tasks.restore', $task->id) }}">
