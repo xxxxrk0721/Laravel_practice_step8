@@ -59,6 +59,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="comment">
+                    <p>
+                        <small>
+                            赤：期限切れかつステータスが未着手か対応中<br>
+                            オレンジ：期限が3日以内かつステータスが未着手か対応中
+                        </small>
+                    </p>
+                </div>
                 <div class="search_area">
                     <form action="{{ route('user.dashboard') }}" method="GET" class="search_form">
                         @csrf
