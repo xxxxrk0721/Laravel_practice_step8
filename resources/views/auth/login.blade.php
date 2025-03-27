@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>管理</title>
-    @vite(['resources/js/app.js'])
-    <style>
-    </style>
-</head>
+{{--<!DOCTYPE html>--}}
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+{{--<head>--}}
+{{--    <meta charset="utf-8" />--}}
+{{--    <meta name="viewport" content="width=device-width, initial-scale=1" />--}}
+{{--    <title>管理</title>--}}
+{{--    @vite(['resources/js/app.js'])--}}
+{{--    <style>--}}
+{{--    </style>--}}
+{{--</head>--}}
+{{--<x-head title="ユーザー管理" />--}}
+@include('layouts.head')
 <body>
     <main class="login">
         <div class="login_inner">
