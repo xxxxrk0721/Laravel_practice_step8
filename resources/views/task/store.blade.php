@@ -1,24 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{{--<!doctype html>--}}
+{{--<html lang="en">--}}
+{{--<head>--}}
+{{--    <meta charset="UTF-8">--}}
+{{--    <meta name="viewport"--}}
+{{--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--}}
+{{--    <meta http-equiv="X-UA-Compatible" content="ie=edge">--}}
 {{--    @vite(['resources/js/app.js'])--}}
+{{--    @vite(['resources/js/store.js'])--}}
+{{--    <title>Document</title>--}}
+{{--</head>--}}
+{{--<body>--}}
+{{--<header>--}}
+@extends('layouts.app')
+
+@section('title', 'タスク管理一覧')
+
+@section('vite')
     @vite(['resources/js/store.js'])
-    <title>Document</title>
-</head>
-<body>
-<header>
+@endsection
+
+@section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <div class="tsk_tittle">
             <h1>タスク新規登録画面</h1>
         </div>
     </div>
-</header>
-<main>
+{{--</header>--}}
+@endsection
+
+@section('content')
+{{--<main>--}}
     <div class="main_edit_inner">
         <div class="success">
             @if (session('success'))
@@ -87,6 +99,7 @@
             </div>
         </form>
     </div>
-</main>
-</body>
-</html>
+{{--</main>--}}
+{{--</body>--}}
+{{--</html>--}}
+@endsection

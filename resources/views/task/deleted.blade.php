@@ -1,16 +1,13 @@
-<!doctype html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+@extends('layouts.app')
+
+@section('title', 'タスク管理一覧')
+
+@section('vite')
     @vite(['resources/js/delete.js'])
-    <title>タスク管理一覧</title>
-</head>
-<body>
-<!--ヘッダー-->
-<header>
+@endsection
+
+@section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <!--            編集画面遷移用ボタン-->
@@ -23,9 +20,9 @@
             @endif
         </div>
     </div>
-</header>
+@endsection
 <!--メイン-->
-<main>
+@section('content')
     <div class="main">
         <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
@@ -108,17 +105,7 @@
                                 <td class="detail" data-label="復元ボタン">
                                     <a href="{{ route('tasks.restore',['id' => $row->id])  }}">復元</a>
                                 </td>
-{{--                                <td class="detail" data-label="復元ボタン">--}}
-{{--                                    <form method="POST" action="{{ route('tasks.restore',['id' => $row->id]) }}">--}}
-{{--                                        @csrf--}}
-{{--                                        <button type="submit">復元</button>--}}
-{{--                                    </form>--}}
-{{--                                </td>--}}
                                 <td class="detail" data-label="完全削除ボタン">
-{{--                                    <form method="POST" action="{{ route('tasks.forceDelete',['id' => $row->id]) }}">--}}
-{{--                                        @csrf--}}
-{{--                                        <button type="submit" onclick="return confirm('完全に削除しますか？')">完全削除</button>--}}
-{{--                                    </form>--}}
                                     <a href="{{ route('tasks.forceDelete',['id' => $row->id])  }}">完全削除</a>
                                 </td>
                             </tr>
@@ -127,38 +114,15 @@
                     </table>
                     {{ $deletedTasks->appends(request()->query())->links('vendor.pagination.default') }}
                 </form>
-{{--                <div class="delete_area">--}}
-{{--                    <table class="task">--}}
-{{--                        <tr class="title">--}}
-{{--                            <th>復元ボタン</th>--}}
-{{--                            <th>完全削除ボタン</th>--}}
-{{--                        </tr>--}}
-{{--                        @foreach ($deletedTasks as $row)--}}
-{{--                        <tr class="tsk_content">--}}
-{{--                            <td class="detail" data-label="復元ボタン">--}}
-{{--                                <form method="POST" action="{{ route('tasks.restore',['id' => $row->id]) }}">--}}
-{{--                                    @csrf--}}
-{{--                                    <button type="submit">復元</button>--}}
-{{--                                </form>--}}
-{{--                            </td>--}}
-{{--                            <td class="detail" data-label="完全削除ボタン">--}}
-{{--                                <form method="POST" action="{{ route('tasks.forceDelete',['id' => $row->id]) }}">--}}
-{{--                                    @csrf--}}
-{{--                                    <button type="submit" onclick="return confirm('完全に削除しますか？')">完全削除</button>--}}
-{{--                                </form>--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                        @endforeach--}}
-{{--                    </table>--}}
-{{--                </div>--}}
             </div>
         </div>
     </div>
-</main>
+@endsection
 <!--フッター-->
-<footer>
+{{--<footer>--}}
 
-</footer>
+{{--</footer>--}}
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.mobile_only').forEach(function (taskNameCell) {
@@ -169,5 +133,4 @@
         });
     });
 </script>
-</body>
-</html>
+@endpush

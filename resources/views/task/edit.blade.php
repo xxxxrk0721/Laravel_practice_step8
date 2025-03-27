@@ -1,24 +1,21 @@
-<!doctype html>
-<html lang=ja>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>編集・削除画面</title>
+@extends('layouts.app')
+
+@section('title', 'タスク管理一覧')
+
+@section('vite')
     @vite(['resources/js/edit.js'])
-</head>
-<body>
-<!--ヘッダー-->
-<header>
+@endsection
+
+@section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <div class="tsk_tittle">
             <h1>タスク編集画面(管理者)</h1>
         </div>
     </div>
-</header>
+@endsection
 <!--メイン-->
+@section('content')
 <div class="main">
     <!--        レイアウト調整領域（メイン）-->
     <div class="main_edit_inner">
@@ -83,7 +80,6 @@
                         </td>
                         <td data-label="ステータス">
                             <select name="status">
-    {{--                            @dd($tsk);--}}
                                 <option value=1 {{ $task->status == 1 ? 'selected' : '' }}>未着手</option>
                                 <option value=2 {{ $task->status == 2 ? 'selected' : '' }}>対応中</option>
                                 <option value=3 {{ $task->status == 3 ? 'selected' : '' }}>完了</option>
@@ -110,8 +106,4 @@
         @endforeach
     </div>
 </div>
-<footer>
-
-</footer>
-</body>
-</html>
+@endsection

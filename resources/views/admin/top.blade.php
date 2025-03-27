@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>管理</title>
-    @vite(['resources/js/index.js'])
+{{--<!DOCTYPE html>--}}
+{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
+{{--<head>--}}
+{{--    <meta charset="utf-8" />--}}
+{{--    <meta name="viewport" content="width=device-width, initial-scale=1" />--}}
+{{--    <title>管理</title>--}}
+{{--    @vite(['resources/js/index.js'])--}}
 
-    <style>
+{{--    <style>--}}
 {{--        @vite('resources/sass/index.scss')--}}
-    </style>
-</head>
+{{--    </style>--}}
+{{--</head>--}}
 
-<body>
-<!--ヘッダー-->
-<header>
+{{--<body>--}}
+{{--<!--ヘッダー-->--}}
+{{--<header>--}}
+@extends('layouts.app')
+
+@section('title', 'タスク管理一覧')
+
+@section('vite')
+    @vite(['resources/js/index.js'])
+@endsection
+
+@section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <!--            編集画面遷移用ボタン-->
@@ -32,9 +41,11 @@
             @enderror
         @endforeach
     </div>
-</header>
+{{--</header>--}}
+@endsection
 <!--メイン-->
-<main>
+@section('content')
+{{--<main>--}}
     <div class="main">
         <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
@@ -166,11 +177,13 @@
             </div>
         </div>
     </div>
-</main>
+{{--</main>--}}
+@endsection
 <!--フッター-->
 <footer>
 
 </footer>
+@push('scripts')
 <script>
     // 日付順ソート
     document.addEventListener("DOMContentLoaded", function () {
@@ -252,5 +265,6 @@
         });
     });
 </script>
-</body>
-</html>
+@endpush
+{{--</body>--}}
+{{--</html>--}}

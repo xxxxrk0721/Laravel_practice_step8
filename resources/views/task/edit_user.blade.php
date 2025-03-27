@@ -1,24 +1,21 @@
-<!doctype html>
-<html lang=ja>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>編集・削除画面</title>
+@extends('layouts.app')
+
+@section('title', 'タスク管理一覧')
+
+@section('vite')
     @vite(['resources/js/edit.js'])
-</head>
-<body>
-<!--ヘッダー-->
-<header>
+@endsection
+
+@section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <div class="tsk_tittle">
             <h1>タスク編集画面</h1>
         </div>
     </div>
-</header>
+@endsection
 <!--メイン-->
+@section('content')
 <div class="main">
     <!--        レイアウト調整領域（メイン）-->
     <div class="main_edit_inner">
@@ -35,9 +32,6 @@
                         <button type="submit" onclick="return confirm('このタスクを削除しますか？')" class="button delete">削除</button>
                     </form>
                 </div>
-{{--                <div class="update_button_user">--}}
-{{--                    <input type="submit" value="更新" class="button update">--}}
-{{--                </div>--}}
             </div>
         </div>
         <!--            タスク一覧表示領域-->
@@ -98,8 +92,4 @@
 
     </div>
 </div>
-<footer>
-
-</footer>
-</body>
-</html>
+@endsection

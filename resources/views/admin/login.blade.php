@@ -1,23 +1,9 @@
-{{--<!DOCTYPE html>--}}
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-{{--<head>--}}
-{{--    <meta charset="utf-8" />--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1" />--}}
-{{--    <title>管理</title>--}}
-{{--    @vite(['resources/js/app.js'])--}}
-{{--    <style>--}}
-{{--    </style>--}}
-{{--</head>--}}
 @extends('layouts.login')
-
-{{--@section('vite')--}}
-{{--    @vite(['resources/js/login.js'])--}}
-{{--@endsection--}}
 
 @section('title', '管理者ログイン')
 
 @section('content')
-{{--<body>--}}
+
     <main class="login">
         <div class="login_inner">
             <div class="title">
@@ -55,5 +41,3 @@
         </div>
     </main>
 @endsection
-{{--</body>--}}
-{{--</html>--}}

@@ -6,6 +6,10 @@
     <title>管理</title>
     @vite(['resources/js/app.js'])
     <style>
+        body {
+            font-family: 'メイリオ', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            /*font-family: 'Courier New', monospace; !* めっちゃ特徴的な等幅フォント *!*/
+        }
     </style>
 </head>
 <body>

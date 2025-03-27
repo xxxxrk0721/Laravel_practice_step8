@@ -1,23 +1,19 @@
-<!doctype html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+@extends('layouts.app')
+
+@section('title', 'タスク管理一覧')
+
+@section('vite')
     @vite(['resources/js/delete_show.js'])
-    <title>タスク管理一覧</title>
-</head>
-<body>
-<!--ヘッダー-->
-<header>
+@endsection
+
+@section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <h2>タスクの復元</h2>
     </div>
-</header>
+@endsection
 <!--メイン-->
-<main>
+@section('content')
     <div class="main">
         <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
@@ -73,11 +69,4 @@
             </div>
         </div>
     </div>
-</main>
-<!--フッター-->
-<footer>
-
-</footer>
-
-</body>
-</html>
+@endsection
