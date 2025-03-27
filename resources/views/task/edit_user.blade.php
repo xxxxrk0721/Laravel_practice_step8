@@ -20,19 +20,7 @@
     <!--        レイアウト調整領域（メイン）-->
     <div class="main_edit_inner">
         <div class="button_area">
-            <div class="nav">
-                <!--            一覧画面遷移用ボタン-->
-                <div class="allnemu_button">
-                    <a href="{{ route('user.dashboard') }}" class="button back">タスク一覧へ戻る</a>
-                </div>
-                <div class="delete_area">
-                    <form action="{{ route('user.dashboard.destroy', $task->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('このタスクを削除しますか？')" class="button delete">削除</button>
-                    </form>
-                </div>
-            </div>
+            <x-taskedit-navi :task="$task" />
         </div>
         <!--            タスク一覧表示領域-->
         <form action="{{ route('user.dashboard.update',$task->id) }}" method="POST">
@@ -75,21 +63,7 @@
                 </table>
             </div>
         </form>
-        <div class="success">
-            @if (session('success'))
-                <p style="color: green;" class="success_message">{{ session('success') }}</p>
-            @endif
-            @if (session('info'))
-                <p style="color: green;" class="success_message">{{ session('info') }}</p>
-            @endif
-        </div>
-        @foreach (['task_name', 'task_content', 'ymd_to', 'ymd_from'] as $field)
-            @error($field)
-            <div class="error-message" style="color: red;">{{ $message }}</div>
-            @enderror
-        @endforeach
-
-
+        <x-task-edit-message />
     </div>
 </div>
 @endsection

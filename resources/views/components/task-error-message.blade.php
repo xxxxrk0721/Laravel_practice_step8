@@ -1,0 +1,10 @@
+<div class="success">
+    @if (session('success'))
+        <p style="color: green;" class="success_message">{{ session('success') }}</p>
+    @endif
+</div>
+@foreach (['ymd_to', 'ymd_from'] as $field)
+    @error($field)
+    <div class="error-message" style="color: red;">{{ $message }}</div>
+    @enderror
+@endforeach

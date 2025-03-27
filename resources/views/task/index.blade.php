@@ -14,16 +14,7 @@
             <h1>業務進捗ダッシュボード(管理者用)</h1>
             <h2>ようこそ {{ $admins->name }} さん</h2>
         </div>
-        <div class="success">
-            @if (session('success'))
-                <p style="color: green;" class="success_message">{{ session('success') }}</p>
-            @endif
-        </div>
-        @foreach (['ymd_to', 'ymd_from'] as $field)
-            @error($field)
-            <div class="error-message" style="color: red;">{{ $message }}</div>
-            @enderror
-        @endforeach
+        <x-task-error-message />
     </div>
 @endsection
 <!--メイン-->
@@ -70,8 +61,6 @@
                         </div>
                         <div>
                             ユーザーID
-
-    {{--                    <input type="text" name="user_id" value="{{ request('user_id') }}" placeholder="ユーザーIDを検索">--}}
                             <select name="user_id" id="user_id">
                                 <option value="" {{ request('user_id') == "" ? 'selected' : '' }}>すべてのユーザー</option>
                                 @foreach ($users as $user)
