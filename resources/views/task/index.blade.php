@@ -1,17 +1,3 @@
-{{--<!doctype html>--}}
-{{--<html lang="ja">--}}
-{{--<head>--}}
-{{--    <meta charset="UTF-8">--}}
-{{--    <meta name="viewport"--}}
-{{--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
-{{--    <meta http-equiv="X-UA-Compatible" content="ie=edge">--}}
-{{--    @vite(['resources/js/admin_index.js'])--}}
-{{--    <title>タスク管理一覧</title>--}}
-{{--</head>--}}
-{{--<body>--}}
-{{--<!--ヘッダー-->--}}
-{{--<header>--}}
 @extends('layouts.app')
 
 @section('title', 'タスク管理一覧')
@@ -40,9 +26,7 @@
         @endforeach
     </div>
 @endsection
-{{--</header>--}}
 <!--メイン-->
-{{--<main>--}}
 @section('content')
     <div class="main">
         <!--        レイアウト調整領域（メイン）-->
@@ -50,44 +34,9 @@
             <!--            タスク一覧表示領域-->
             <div class="search">
                 <!--                ステータス検索-->
-    {{--            <form method="POST" action="{{ route('admin.login.destroy') }}">--}}
                 <div class="button_area">
-                    <div class="nav">
-                        <form method="POST" action="{{ route('admin.login.destroy') }}">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="button back">ログアウト</button>
-                        </form>
-                        <div class="new_button">
-                            <div class="edit_button">
-                                {{--                    <input type="submit" value="タスク登録">--}}
-                                <a href="{{ route('tasks.store') }}" class="button register">タスク新規登録</a>
-                            </div>
-                        </div>
-                        <div class="delete_button">
-                            <div class="edit_button">
-                                {{--                    <input type="submit" value="タスク登録">--}}
-                                <a href="{{ route('tasks.deletedList') }}" class="button delete">削除済一覧</a>
-                            </div>
-                        </div>
-                        <div class="humburger_btn">
-                            <button class="menu_button">☰</button> <!-- ハンバーガーメニュー -->
-                        </div>
-                        <div class="comment">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
+                    <x-task-navigation :isAdmin="true" />
                 </div>
-{{--                <div class="comment">--}}
-{{--                    <p>--}}
-{{--                        <small>--}}
-{{--                            赤：期限切れかつステータスが未着手か対応中<br>--}}
-{{--                            オレンジ：期限が3日以内かつステータスが未着手か対応中--}}
-{{--                        </small>--}}
-{{--                    </p>--}}
-{{--                </div>--}}
                 <x-comment-note>
                     赤：期限切れかつステータスが未着手か対応中<br>
                     オレンジ：期限が3日以内かつステータスが未着手か対応中

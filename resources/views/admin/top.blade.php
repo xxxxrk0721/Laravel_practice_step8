@@ -1,19 +1,3 @@
-{{--<!DOCTYPE html>--}}
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-{{--<head>--}}
-{{--    <meta charset="utf-8" />--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1" />--}}
-{{--    <title>管理</title>--}}
-{{--    @vite(['resources/js/index.js'])--}}
-
-{{--    <style>--}}
-{{--        @vite('resources/sass/index.scss')--}}
-{{--    </style>--}}
-{{--</head>--}}
-
-{{--<body>--}}
-{{--<!--ヘッダー-->--}}
-{{--<header>--}}
 @extends('layouts.app')
 
 @section('title', 'タスク管理一覧')
@@ -41,11 +25,9 @@
             @enderror
         @endforeach
     </div>
-{{--</header>--}}
 @endsection
 <!--メイン-->
 @section('content')
-{{--<main>--}}
     <div class="main">
         <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
@@ -53,31 +35,8 @@
             <div class="search">
                 <!--                ステータス検索-->
                 <div class="button_area">
-                    <div class="nav">
-                        <form method="POST" action="{{ route('login.destroy') }}">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="button back">ログアウト</button>
-                        </form>
-                        <div class="new_button">
-                            <!--            検索画面遷移用ボタン-->
-                            <div class="edit_button">
-                                <a href="{{ route('user.dashboard.store') }}" class="button register">タスク新規登録</a>
-                            </div>
-                        </div>
-                        <div class="humburger_btn">
-                            <button class="menu_button">☰</button> <!-- ハンバーガーメニュー -->
-                        </div>
-                    </div>
+                    <x-task-navigation />
                 </div>
-{{--                <div class="comment">--}}
-{{--                    <p>--}}
-{{--                        <small>--}}
-{{--                            赤：期限切れかつステータスが未着手か対応中<br>--}}
-{{--                            オレンジ：期限が3日以内かつステータスが未着手か対応中--}}
-{{--                        </small>--}}
-{{--                    </p>--}}
-{{--                </div>--}}
                 <x-comment-note>
                     赤：期限切れかつステータスが未着手か対応中<br>
                     オレンジ：期限が3日以内かつステータスが未着手か対応中
@@ -173,11 +132,9 @@
                     {{ $tasks->appends(request()->query())->links('vendor.pagination.default') }}
 
                 </form>
-{{--                <p>{{route('user.dashboard.updateStatus')}}</p>--}}
             </div>
         </div>
     </div>
-{{--</main>--}}
 @endsection
 <!--フッター-->
 <footer>
@@ -266,5 +223,3 @@
     });
 </script>
 @endpush
-{{--</body>--}}
-{{--</html>--}}
