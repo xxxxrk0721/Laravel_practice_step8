@@ -9,7 +9,11 @@
 {{--    </style>--}}
 {{--</head>--}}
 {{--<x-head title="ユーザー管理" />--}}
-@include('layouts.head')
+@extends('layouts.login')
+
+@section('title', 'ユーザーログイン')
+
+@section('content')
 <body>
     <main class="login">
         <div class="login_inner">
@@ -56,4 +60,5 @@
         </div>
     </main>
 </body>
+@endsection
 {{--</x-guest-layout>--}}

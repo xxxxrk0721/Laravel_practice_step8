@@ -8,8 +8,16 @@
 {{--    <style>--}}
 {{--    </style>--}}
 {{--</head>--}}
-@include('layouts.head')
-<body>
+@extends('layouts.login')
+
+{{--@section('vite')--}}
+{{--    @vite(['resources/js/login.js'])--}}
+{{--@endsection--}}
+
+@section('title', '管理者ログイン')
+
+@section('content')
+{{--<body>--}}
     <main class="login">
         <div class="login_inner">
             <div class="title">
@@ -46,5 +54,6 @@
             @enderror
         </div>
     </main>
-</body>
-</html>
+@endsection
+{{--</body>--}}
+{{--</html>--}}
