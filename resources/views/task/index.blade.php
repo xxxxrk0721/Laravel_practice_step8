@@ -7,35 +7,21 @@
 @endsection
 
 @section('header')
-    <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
         <div class="button_area">
             <x-task-navigation :isAdmin="true" />
         </div>
-        <!--            編集画面遷移用ボタン-->
-{{--        <div class="tsk_tittle">--}}
-{{--            <h1>業務進捗ダッシュボード(管理者用)</h1>--}}
-{{--            <h2>ようこそ {{ $admins->name }} さん</h2>--}}
-{{--        </div>--}}
-{{--        <x-task-error-message />--}}
     </div>
 @endsection
 <!--メイン-->
 @section('content')
     <div class="main">
-        <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
-            <!--            タスク一覧表示領域-->
             <div class="search">
                 <div class="tsk_tittle">
-{{--                    <h1>業務進捗ダッシュボード(管理者用)</h1>--}}
                     <h2>ようこそ {{ $admins->name }} さん</h2>
                 </div>
                 <x-task-error-message />
-                <!--                ステータス検索-->
-{{--                <div class="button_area">--}}
-{{--                    <x-task-navigation :isAdmin="true" />--}}
-{{--                </div>--}}
                 <x-comment-note>
                     赤：期限切れかつステータスが未着手か対応中<br>
                     オレンジ：期限が3日以内かつステータスが未着手か対応中
@@ -161,7 +147,6 @@
             </div>
         </div>
     </div>
-{{--</main>--}}
 @endsection
 <!--フッター-->
 <footer>
@@ -248,6 +233,3 @@
     });
 </script>
 @endpush
-
-{{--</body>--}}
-{{--</html>--}}

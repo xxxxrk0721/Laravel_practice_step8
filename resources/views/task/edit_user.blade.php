@@ -9,9 +9,12 @@
 @section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-        <div class="tsk_tittle">
-            <h1>タスク編集画面</h1>
+        <div class="button_area">
+            <x-taskedit-navi :task="$task" />
         </div>
+{{--        <div class="tsk_tittle">--}}
+{{--            <h1>タスク編集画面</h1>--}}
+{{--        </div>--}}
     </div>
 @endsection
 <!--メイン-->
@@ -19,9 +22,12 @@
 <div class="main">
     <!--        レイアウト調整領域（メイン）-->
     <div class="main_edit_inner">
-        <div class="button_area">
-            <x-taskedit-navi :task="$task" />
+        <div class="tsk_tittle">
+            <h2>タスク編集画面</h2>
         </div>
+{{--        <div class="button_area">--}}
+{{--            <x-taskedit-navi :task="$task" />--}}
+{{--        </div>--}}
         <!--            タスク一覧表示領域-->
         <form action="{{ route('user.dashboard.update',$task->id) }}" method="POST">
             @csrf

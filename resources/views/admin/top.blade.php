@@ -9,31 +9,17 @@
 @section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-{{--        <div class="header_navi">--}}
             <div class="button_area">
                 <x-task-navigation />
             </div>
-{{--        </div>--}}
-{{--        <div class="tsk_tittle">--}}
-{{--            <h1>業務進捗ダッシュボード</h1>--}}
-{{--            <h2>ようこそ {{ $users->name }} さん</h2>--}}
-{{--        </div>--}}
-{{--        <x-task-error-message />--}}
     </div>
 @endsection
 <!--メイン-->
 @section('content')
     <div class="main">
-        <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
-            <!--            タスク一覧表示領域-->
             <div class="search">
-                <!--                ステータス検索-->
-{{--                <div class="button_area">--}}
-{{--                    <x-task-navigation />--}}
-{{--                </div>--}}
                 <div class="tsk_tittle">
-{{--                    <h1>業務進捗ダッシュボード</h1>--}}
                     <h2>ようこそ {{ $users->name }} さん</h2>
                 </div>
                 <x-task-error-message />
@@ -81,7 +67,6 @@
 
                     <table class="task">
                         <tr class="title">
-{{--                            <th class="id">項番</th>--}}
                             <th class="tsk_nm">タスク名称</th>
                             <th class="start">開始日▼▲</th>
                             <th class="end">終了日▼▲</th>
