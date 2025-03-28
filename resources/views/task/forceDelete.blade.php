@@ -7,23 +7,19 @@
 @endsection
 
 @section('header')
-    <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-        <!--            編集画面遷移用ボタン-->
-        <h2>タスクの完全削除</h2>
+        <div class="button_area">
+            <div class="nav">
+                <a href="{{ route('tasks.deletedList') }}" class="button back">削除一覧へ戻る</a>
+            </div>
+        </div>
     </div>
 @endsection
 <!--メイン-->
 @section('content')
     <div class="main">
-        <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
-            <div class="button_area">
-                <div class="nav">
-                    <a href="{{ route('tasks.deletedList') }}" class="button back">削除一覧へ戻る</a>
-                </div>
-            </div>
-            <!--            タスク一覧表示領域-->
+            <h2>タスクの完全削除</h2>
             <div class="search_list">
                 <div class="container">
                     <p>以下のタスクを完全削除しますか？</p>
@@ -61,7 +57,7 @@
                     <!-- 復元ボタン -->
                     <form method="POST" action="{{ route('tasks.forceDelete', $task->id) }}">
                         @csrf
-                        <button type="submit" class="btn btn-success">完全削除</button>
+                        <button type="submit" class="btn btn-delete">完全削除</button>
                     </form>
                 </div>
             </div>

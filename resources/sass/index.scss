@@ -201,6 +201,12 @@ main {
                             color: #333333;
                         }
 
+                        .detail {
+                            a:hover {
+                                border-bottom: 2px solid #BBBBBB;
+                            }
+                        }
+
                         .overdue {
                             color: #c0392b !important;
                             font-weight: bold;

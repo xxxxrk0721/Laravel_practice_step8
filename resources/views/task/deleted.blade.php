@@ -8,34 +8,27 @@
 @endsection
 
 @section('header')
-    <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-        <!--            編集画面遷移用ボタン-->
-        <div class="tsk_tittle">
-            <h1>削除済一覧(管理者用)</h1>
-        </div>
-        <div class="success">
-            @if (session('success'))
-                <p style="color: green;" class="success_message">{{ session('success') }}</p>
-            @endif
+        <div class="button_area">
+            <div class="nav">
+                <div class="allnemu_button">
+                    <a href="{{ route('tasks.index') }}" class="button back">タスク一覧へ戻る</a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 <!--メイン-->
 @section('content')
     <div class="main">
-        <!--        レイアウト調整領域（メイン）-->
         <div class="main_inner">
-            <!--            タスク一覧表示領域-->
-            <div class="search">
-                <!--                ステータス検索-->
-                <div class="button_area">
-                    <div class="nav">
-                        <div class="allnemu_button">
-                            <a href="{{ route('tasks.index') }}" class="button back">タスク一覧へ戻る</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="tsk_tittle">
+                <h2>削除済一覧(管理者用)</h2>
+            </div>
+            <div class="success">
+                @if (session('success'))
+                    <p style="color: green;" class="success_message">{{ session('success') }}</p>
+                @endif
             </div>
             <div class="search_list">
                 <form action="{{ route('tasks.deletedList') }}" method="GET" class="list">
@@ -105,7 +98,7 @@
                                 <td class="detail" data-label="復元ボタン">
                                     <a href="{{ route('tasks.restore',['id' => $row->id])  }}">復元</a>
                                 </td>
-                                <td class="detail" data-label="完全削除ボタン">
+                                <td class="delete" data-label="完全削除ボタン">
                                     <a href="{{ route('tasks.forceDelete',['id' => $row->id])  }}">完全削除</a>
                                 </td>
                             </tr>
@@ -118,10 +111,6 @@
         </div>
     </div>
 @endsection
-<!--フッター-->
-{{--<footer>--}}
-
-{{--</footer>--}}
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {

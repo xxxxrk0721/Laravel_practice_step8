@@ -8,12 +8,67 @@ header {
     width: 100%;
 
     .header_inner {
-        width: 80%;
-        margin: 0 auto;
+        max-width: 100%;
 
-        .tsk_tittle {
-            h1 {
-                text-align: center;
+        .button_area {
+            border-bottom: 2px solid #f0f0f0;
+            height: 50px;
+            position: fixed;
+            width: 100%;
+            background-color: #ffffff;
+            .nav {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                width: 80%;
+                margin: 0 auto;
+                height: 100%;
+
+                .delete_area {
+                    height: 100%;
+                    form {
+                        .button {
+                            display: inline-block;
+                            padding: 7px 15px;
+                            font-size: 14px;
+                            text-align: center;
+                            text-decoration: none;
+                            color: #7a7a7a; /* 文字色 */
+                            background-color: transparent;
+                            border: 2px solid transparent; /* 初期の枠線を透明に */
+                            cursor: pointer;
+                            height: 100%;
+                        }
+
+                        ///* ホバー時のアニメーション */
+                        .button:hover {
+                            border-bottom: 3px solid #f8b7cd;
+                        }
+                    }
+                }
+
+                .allnemu_button {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    /* ボタンの共通スタイル */
+                    .button {
+                        display: flex;
+                        align-items: center;
+                        padding: 0 15px;
+                        font-size: 14px;
+                        text-align: center;
+                        text-decoration: none;
+                        color: #7a7a7a; /* 文字色 */
+                        cursor: pointer;
+                        height: 100%;
+                    }
+
+                    /* ホバー時のアニメーション */
+                    .button:hover {
+                        border-bottom: 3px solid #f8b7cd;
+                    }
+                }
             }
         }
     }
@@ -21,49 +76,18 @@ header {
 
 .main {
     width: 100%;
+    padding-top: 50px; /* ヘッダーの高さと合わせる */
 
     .main_inner {
         width: 80%;
         margin: 0 auto;
 
-        .search {
-            .nav {
-            //    width: 100%;
-                .allnemu_button {
-                    /* ボタンの共通スタイル */
-                    .button {
-                        display: inline-block;
-                        padding: 7px 23px;
-                        font-size: 14px;
-                        font-weight: bold;
-                        text-align: center;
-                        text-decoration: none;
-                        color: #fff; /* 文字色 */
-                        background-color: #28a745; /* 緑系で親しみやすい色 */
-                        border-radius: 30px; /* 丸みをつける */
-                        border: 2px solid transparent; /* 初期の枠線を透明に */
-                        box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
-                        cursor: pointer;
-                    }
-
-                    /* ホバー時のアニメーション */
-                    .button:hover {
-                        background-color: #218838; /* 濃い緑 */
-                        transform: translateY(-3px); /* 少し浮かせる */
-                        box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
-                    }
-
-                    /* 「トップページへ戻る」ボタン（やや控えめ） */
-                    .button.back {
-                        background-color: #6c757d; /* 落ち着いたグレー */
-                    }
-
-                    .button.back:hover {
-                        background-color: #545b62; /* ホバー時に少し濃く */
-                    }
-                }
+        .tsk_tittle {
+            h2 {
+                color: #333333;
             }
         }
+
         .search_list {
             margin-top: 20px;
             width: 100%;
@@ -82,10 +106,15 @@ header {
                         padding: 10px;
                         border: 1px solid #8c9cb0;
                         text-align: center;
+
+                        a {
+                            text-decoration: none;
+                            color: #333333;
+                        }
                     }
 
                     th {
-                        background-color: #bbcde5;
+                        background-color: #EEEEEE;
                     }
 
                     td {
@@ -95,6 +124,19 @@ header {
 
                         input,select,button {
                             max-width: 100%;
+                        }
+                    }
+
+                    .detail {
+                        a:hover {
+                            border-bottom: 2px solid #81c784;
+                        }
+
+                    }
+
+                    .delete {
+                        a:hover {
+                            border-bottom: 2px solid #e57373;
                         }
                     }
 
@@ -133,9 +175,9 @@ header {
 }
 
 .pagination .active span {
-    background-color: blue;
-    color: white;
-    border-color: blue;
+    background-color: #EEEEEE;
+    color: #333;
+    border-color: #EEEEEE;
 }
 
 .pagination .disabled span {
@@ -145,58 +187,75 @@ header {
 @media screen and (max-width: 768px) {
     .header_inner {
         width: 100% !important;
+
+        .button_area {
+            margin: 0 !important;
+
+            .nav {
+                width: 100% !important;
+                margin: 0 !important;
+                justify-content: right !important;
+            }
+        }
     }
 
     .main {
         .main_inner {
             width: 100%;
+
+            .tsk_tittle {
+                text-align: center;
+            }
+
+            .search_list {
+                form {
+                    .task {
+                        box-shadow: none !important;
+
+                        th {
+                            display: none; /* ヘッダーは非表示 */
+                        }
+
+                        tr {
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+
+                        td {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 8px;
+                            border: none;
+                            border-bottom: 1px solid #eee;
+                            position: relative;
+                        }
+
+                        td::before {
+                            content: attr(data-label); /* ヘッダー名を表示 */
+                            font-weight: bold;
+                        }
+
+                        .detail {
+                            display: none;
+                        }
+
+                        .open .detail {
+                            display: flex;
+                        }
+
+                        .user_title {
+                            display: none;
+                        }
+
+                        .mobile_only {
+                            background-color: #eee;
+                            align-items: center;
+                            display: flex !important;
+                        }
+
+                    }
+                }
+            }
         }
-    }
-
-    .task {
-        box-shadow: none !important;
-
-        th {
-            display: none; /* ヘッダーは非表示 */
-        }
-
-        tr {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        td {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px;
-            border: none;
-            border-bottom: 1px solid #eee;
-            position: relative;
-        }
-
-        td::before {
-            content: attr(data-label); /* ヘッダー名を表示 */
-            font-weight: bold;
-        }
-
-        .detail {
-            display: none;
-        }
-
-        .open .detail {
-            display: flex;
-            //flex-direction: column;
-        }
-
-        .user_title {
-            display: none;
-        }
-
-        .mobile_only {
-            background-color: #eee;
-            align-items: center;
-            display: flex !important;
-        }
-
     }
 }
