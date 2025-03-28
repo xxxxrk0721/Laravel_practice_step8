@@ -315,6 +315,9 @@ main {
                             .search_box {
                                 display: flex;
                                 flex-direction: column;
+                                position: fixed;
+                                background-color: white;
+                                width: 100%;
 
                             }
                         }
