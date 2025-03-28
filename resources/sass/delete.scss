@@ -16,6 +16,7 @@ header {
             position: fixed;
             width: 100%;
             background-color: #ffffff;
+            z-index: 1;
             .nav {
                 display: flex;
                 justify-content: left;
@@ -101,10 +102,11 @@ header {
                     width: 100%;
                     table-layout: fixed; /* 列幅を自動で縮める */
                     word-break: break-word;
+                    //border: 1px solid #EEEEEE;
 
                     th, td {
                         padding: 10px;
-                        //border: 1px solid #8c9cb0;
+                        border: 1px solid #8c9cb0;
                         text-align: center;
 
                         a {
@@ -214,26 +216,29 @@ header {
 
                         th {
                             display: none; /* ヘッダーは非表示 */
+                            border: none;
                         }
 
                         tr {
                             display: block;
                             margin-bottom: 10px;
+                            //border: none !important;
+                            td {
+                                display: flex;
+                                justify-content: space-between;
+                                padding: 8px;
+                                border: none !important;
+                                border-bottom: 1px solid #eee !important;
+                                position: relative;
+                            }
+
+                            td::before {
+                                content: attr(data-label); /* ヘッダー名を表示 */
+                                font-weight: bold;
+                            }
                         }
 
-                        td {
-                            display: flex;
-                            justify-content: space-between;
-                            padding: 8px;
-                            border: none;
-                            border-bottom: 1px solid #eee;
-                            position: relative;
-                        }
 
-                        td::before {
-                            content: attr(data-label); /* ヘッダー名を表示 */
-                            font-weight: bold;
-                        }
 
                         .detail, .delete {
                             display: none;
