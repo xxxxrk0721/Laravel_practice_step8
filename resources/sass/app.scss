@@ -12,6 +12,10 @@
             justify-content: center;
             align-items: flex-end;
             height: 50%;
+
+            h1 {
+                color: #333333;
+            }
         }
 
         .welcome_nav {
@@ -22,6 +26,7 @@
             a {
                 display: block;
                 padding: 10px;
+
             }
             /* ボタンの共通スタイル */
             .button {
@@ -32,7 +37,7 @@
                 text-align: center;
                 text-decoration: none;
                 color: #fff; /* 文字色 */
-                background-color: #007bff; /* ボタンの背景色 */
+                background-color: #5fa8d3; /* ボタンの背景色 */
                 border-radius: 8px; /* 角を丸くする */
                 //transition: all 0.3s ease-in-out;
                 border: 2px solid transparent; /* 枠線を透明に */
@@ -41,18 +46,18 @@
 
             /* ホバー時のアニメーション */
             .button:hover {
-                background-color: #0056b3; /* 濃い青 */
+                background-color: #4e94b5; /* 濃い青 */
                 transform: translateY(-2px); /* 少し浮かせる */
                 box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.3);
             }
 
             /* ボタンの色違い（管理者用） */
             .button.admin {
-                background-color: #dc3545; /* 赤系 */
+                background-color: #e57373; /* 赤系 */
             }
 
             .button.admin:hover {
-                background-color: #a71d2a; /* 濃い赤 */
+                background-color: #c94c4c; /* 濃い赤 */
             }
         }
     }
@@ -66,6 +71,12 @@
         width: 70%;
         text-align: center;
         margin: 0 auto;
+
+        .title {
+            h1 {
+                color: #333333;
+            }
+        }
         .nav {
             display: flex;
             justify-content: center;
@@ -103,31 +114,31 @@
 
                 /* 「新規登録」用ボタン（強調） */
                 .button.register {
-                    background-color: #007bff; /* ユーザー向けに優しい青色 */
+                    background-color: #5fa8d3; /* ユーザー向けに優しい青色 */
                 }
 
                 .button.register:hover {
-                    background-color: #0056b3; /* ホバー時に濃い青 */
+                    background-color: #4e94b5; /* ホバー時に濃い青 */
                 }
 
                 /* 管理者用ボタン */
                 .button.admin {
-                    background-color: #dc3545;
+                    background-color: #e57373;
                 }
 
                 .button.admin:hover {
-                    background-color: #a71d2a; /* ホバー時にさらに濃く */
+                    background-color: #c94c4c; /* ホバー時にさらに濃く */
                     transform: translateY(-2px);
                     box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
                 }
 
                 /* 「トップページへ戻る」ボタン（やや控えめ） */
                 .button.back {
-                    background-color: #6c757d; /* 落ち着いたグレー */
+                    background-color: #adb5bd; /* 落ち着いたグレー */
                 }
 
                 .button.back:hover {
-                    background-color: #545b62; /* ホバー時に少し濃く */
+                    background-color: #8c939a; /* ホバー時に少し濃く */
                 }
             }
         }
@@ -247,6 +258,12 @@
         width: 70%;
         text-align: center;
         margin: 0 auto;
+
+        .title {
+            h1 {
+                color: #333;
+            }
+        }
         .nav {
             display: flex;
             justify-content: center;
@@ -280,11 +297,11 @@
 
                 /* 「トップページへ戻る」ボタン（やや控えめ） */
                 .button.back {
-                    background-color: #6c757d; /* 落ち着いたグレー */
+                    background-color: #adb5bd; /* 落ち着いたグレー */
                 }
 
                 .button.back:hover {
-                    background-color: #545b62; /* ホバー時に少し濃く */
+                    background-color: #8c939a; /* ホバー時に少し濃く */
                 }
 
             }

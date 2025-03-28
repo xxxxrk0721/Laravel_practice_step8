@@ -104,7 +104,7 @@ header {
 
                     th, td {
                         padding: 10px;
-                        border: 1px solid #8c9cb0;
+                        //border: 1px solid #8c9cb0;
                         text-align: center;
 
                         a {
@@ -235,11 +235,15 @@ header {
                             font-weight: bold;
                         }
 
-                        .detail {
+                        .detail, .delete {
                             display: none;
                         }
 
                         .open .detail {
+                            display: flex;
+                        }
+
+                        .open .delete {
                             display: flex;
                         }
 
