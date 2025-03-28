@@ -9,12 +9,16 @@
 @section('header')
     <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-        <!--            編集画面遷移用ボタン-->
-        <div class="tsk_tittle">
-            <h1>業務進捗ダッシュボード</h1>
-            <h2>ようこそ {{ $users->name }} さん</h2>
-        </div>
-        <x-task-error-message />
+{{--        <div class="header_navi">--}}
+            <div class="button_area">
+                <x-task-navigation />
+            </div>
+{{--        </div>--}}
+{{--        <div class="tsk_tittle">--}}
+{{--            <h1>業務進捗ダッシュボード</h1>--}}
+{{--            <h2>ようこそ {{ $users->name }} さん</h2>--}}
+{{--        </div>--}}
+{{--        <x-task-error-message />--}}
     </div>
 @endsection
 <!--メイン-->
@@ -25,9 +29,14 @@
             <!--            タスク一覧表示領域-->
             <div class="search">
                 <!--                ステータス検索-->
-                <div class="button_area">
-                    <x-task-navigation />
+{{--                <div class="button_area">--}}
+{{--                    <x-task-navigation />--}}
+{{--                </div>--}}
+                <div class="tsk_tittle">
+{{--                    <h1>業務進捗ダッシュボード</h1>--}}
+                    <h2>ようこそ {{ $users->name }} さん</h2>
                 </div>
+                <x-task-error-message />
                 <x-comment-note>
                     赤：期限切れかつステータスが未着手か対応中<br>
                     オレンジ：期限が3日以内かつステータスが未着手か対応中

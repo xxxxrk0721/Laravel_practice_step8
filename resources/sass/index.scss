@@ -2,27 +2,88 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    //background-color: #a0aec0;
 }
 
 header {
     width: 100%;
 
     .header_inner {
-        width: 80%;
-        margin: 0 auto;
+        max-width: 100%;
 
-        .tsk_tittle {
-            //width: 80%;
-            //margin: 0 auto;
-            h1 {
-                text-align: center;
+        .button_area {
+            border-bottom: 2px solid #f0f0f0;
+            height: 50px;
+            position: fixed;
+            width: 100%;
+            background-color: #ffffff;
+            .nav {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                width: 80%;
+                margin: 0 auto;
+                height: 100%;
+
+                form {
+                    margin: 0;
+                    .button {
+                        display: inline-block;
+                        padding: 7px 15px;
+                        font-size: 14px;
+                        text-align: center;
+                        text-decoration: none;
+                        color: #7a7a7a; /* 文字色 */
+                        background-color: transparent;
+                        border: 2px solid transparent; /* 初期の枠線を透明に */
+                        cursor: pointer;
+                        height: 100%;
+                    }
+
+                    ///* ホバー時のアニメーション */
+                    .button:hover {
+                        border-bottom: 3px solid #f8b7cd;
+                    }
+
+                }
+
+                .new_button {
+                    height: 100%;
+                    .edit_button {
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        .button {
+                            display: flex;
+                            align-items: center;
+                            padding: 0 15px;
+                            font-size: 14px;
+                            text-align: center;
+                            text-decoration: none;
+                            color: #7a7a7a; /* 文字色 */
+                            cursor: pointer;
+                            height: 100%;
+                        }
+                    }
+
+                //    /* ホバー時のアニメーション */
+                    .button:hover {
+                        border-bottom: 3px solid #f8b7cd;
+                    }
+
+                }
+                .humburger_btn {
+                    .menu_button {
+                        position: absolute;
+                        left: -50%;
+                    }
+                }
             }
         }
     }
 }
 main {
     width: 100%;
+    padding-top: 50px; /* ヘッダーの高さと合わせる */
 
     .main {
         width: 80%;
@@ -30,100 +91,20 @@ main {
 
         .main_inner {
             .search {
-                .button_area {
-                    height: 50px;
-                    .nav {
-                        display: flex;
-                        justify-content: left;
+                .tsk_tittle {
+                    h2 {
+                        color: #333333;
+                    }
+                }
 
-                        form {
-                            .button {
-                                display: inline-block;
-                                padding: 7px 23px;
-                                font-size: 14px;
-                                font-weight: bold;
-                                text-align: center;
-                                text-decoration: none;
-                                color: #fff; /* 文字色 */
-                                background-color: #28a745; /* 緑系で親しみやすい色 */
-                                border-radius: 30px; /* 丸みをつける */
-                                border: 2px solid transparent; /* 初期の枠線を透明に */
-                                box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
-                                cursor: pointer;
-                            }
-
-                            /* ホバー時のアニメーション */
-                            .button:hover {
-                                background-color: #218838; /* 濃い緑 */
-                                transform: translateY(-3px); /* 少し浮かせる */
-                                box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
-                            }
-
-                            /* 「トップページへ戻る」ボタン（やや控えめ） */
-                            .button.back {
-                                background-color: #6c757d; /* 落ち着いたグレー */
-                            }
-
-                            .button.back:hover {
-                                background-color: #545b62; /* ホバー時に少し濃く */
-                            }
-
-
-                        }
-
-                        div {
-                            .button {
-                                display: inline-block;
-                                padding: 7px 23px;
-                                font-size: 14px;
-                                font-weight: bold;
-                                text-align: center;
-                                text-decoration: none;
-                                color: #fff; /* 文字色 */
-                                background-color: #007bff; /* 緑系で親しみやすい色 */
-                                border-radius: 30px; /* 丸みをつける */
-                                border: 2px solid transparent; /* 初期の枠線を透明に */
-                                box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* 影をつける */
-                                cursor: pointer;
-                            }
-
-                            /* ホバー時のアニメーション */
-                            .button:hover {
-                                background-color: #0056b3; /* 濃い緑 */
-                                transform: translateY(-3px); /* 少し浮かせる */
-                                box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.3);
-                            }
-
-                            /* 「削除一覧」用ボタン（強調） */
-                            .button.delete {
-                                background-color: #28a745; /* ユーザー向けに優しい青色 */
-                            }
-
-                            .button.delete:hover {
-                                background-color: #218838; /* ホバー時に濃い青 */
-                            }
-
-                        }
-                        .humburger_btn {
-                            .menu_button {
-                                position: absolute;
-                                left: -50%;
-                                //        background-color: #007bff;
-                                //        color: white;
-                                //        border: none;
-                                //        font-size: 24px;
-                                //        width: 40px;
-                                //        height: 40px;
-                                //        border-radius: 5px;
-                                //        cursor: pointer;
-                            }
-                        }
+                .comment {
+                    p {
+                        color: #333333;
                     }
                 }
 
                 .search_area {
                     margin: 0 auto;
-                    //padding: 5px;
                     background-color: #f8f9fa; /* 優しい背景色 */
                     border-radius: 10px;
                     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
@@ -131,12 +112,8 @@ main {
                         .search_box {
                             display: flex;
                             justify-content: center;
-                            //width: 100%;
-                            //overflow: hidden; /* 必要に応じて */
-                            //max-width: 100%;
                             div {
                                 display: flex;
-                                //height: 100%;
                                 padding: 0 10px;
                                 align-items: center;
                                 font-size: 13px;
@@ -144,7 +121,6 @@ main {
                                 flex: 1;       /* ← 必要に応じて均等に広げる */
                                 overflow: hidden;
                                 text-overflow: ellipsis;
-                                //white-space: nowrap; /* 折り返さずに省略 */
 
                                 /* テキスト入力・セレクトボックス・日付入力の共通スタイル */
                                 input, select {
@@ -199,7 +175,6 @@ main {
             .search_list {
                 margin: 20px 0;
                 .list {
-                    //margin: 0 auto;
 
                     .task {
                         width: 100%; /* テーブルの幅を画面いっぱいに */
@@ -211,10 +186,29 @@ main {
                             padding: 10px;
                             border: 1px solid #8c9cb0;
                             text-align: center;
+
+                            a {
+                                text-decoration: none;
+                                color: #333333;
+                            }
                         }
 
                         th {
-                            background-color: #bbcde5;
+                            background-color: #EEEEEE;
+                        }
+
+                        tr {
+                            color: #333333;
+                        }
+
+                        .overdue {
+                            color: #c0392b !important;
+                            font-weight: bold;
+                        }
+
+                        .near-deadline {
+                            color: #d35400 !important;
+                            font-weight: bold;
                         }
 
                     }
@@ -225,15 +219,7 @@ main {
     }
 }
 
-.overdue {
-    color: #c00;
-    font-weight: bold;
-}
 
-.near-deadline {
-    color: #c77700;
-    font-weight: bold;
-}
 
 // pagenateレイアウト
 .pagination-container {
@@ -260,9 +246,9 @@ main {
 }
 
 .pagination .active span {
-    background-color: blue;
-    color: white;
-    border-color: blue;
+    background-color: #EEEEEE;
+    color: #333;
+    border-color: #EEEEEE;
 }
 
 .pagination .disabled span {
@@ -272,46 +258,56 @@ main {
 @media screen and (max-width: 768px) {
     .header_inner {
         width: 100% !important;
+
+        .button_area {
+            margin: 0 !important;
+
+            .nav {
+                width: 100% !important;
+                margin: 0 !important;
+                justify-content: right !important;
+                //margin: 0 5px !important;
+                .humburger_btn {
+                    height: 100%;
+                    //margin: 0 10px;
+                    //width: 100%;
+                    .menu_button {
+                        top: 5px;
+                        position: static;
+                        left: 0 !important;
+                        //background-color: #7a7a7a;
+                        color: #7a7a7a;
+                        border: none;
+                        font-size: 24px;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
     }
 
     main {
-        //width: 100%;
 
         .main {
             width: 100% !important;
-            //margin: 0 auto;
 
             .main_inner {
                 .search {
-                    .button_area {
-                        .nav {
-                            justify-content: right;
-                            .humburger_btn {
-                                .menu_button {
-                                    left: 0;
-                                    background-color: #007bff;
-                                    color: white;
-                                    border: none;
-                                    font-size: 24px;
-                                    width: 40px;
-                                    height: 40px;
-                                    border-radius: 5px;
-                                    cursor: pointer;
-                                }
-                            }
-                        }
-                    }
 
                     .search_area {
                         display: none;
                         position: absolute;
-                        top: 200px; /* ヘッダーの下に配置 */
+                        top: 50px; /* ヘッダーの下に配置 */
                         z-index: 1000;
+                        width: 100%;
                         .search_form {
                             .search_box {
                                 display: flex;
                                 flex-direction: column;
-                                //max-width: 100%;
 
                             }
                         }
@@ -354,7 +350,6 @@ main {
 
         .open .detail {
             display: flex;
-            //flex-direction: column;
         }
 
         .task-name {
