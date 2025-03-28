@@ -7,27 +7,25 @@
 @endsection
 
 @section('header')
-    <!--        レイアウト調整領域（ヘッダー）-->
     <div class="header_inner">
-        <div class="tsk_tittle">
-            <h1>タスク新規登録画面</h1>
+        <div class="button_area">
+            <div class="nav">
+                <div class="allnemu_button">
+                    <a href="{{ route('user.dashboard') }}" class="button back">タスク一覧へ戻る</a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 @section('content')
     <div class="main_edit_inner">
+        <div class="tsk_tittle">
+            <h2>タスク新規登録画面</h2>
+        </div>
         <x-task-success-message />
         <form action="{{ route('user.dashboard.store') }}" method="POST">
             @csrf
             <x-task-store-error />
-
-            <div class="button_area">
-                <div class="nav">
-                    <div class="allnemu_button">
-                        <a href="{{ route('user.dashboard') }}" class="button back">タスク一覧へ戻る</a>
-                    </div>
-                </div>
-            </div>
             <div class="edit_table">
                 <table class="task">
                     <tr class="title">
