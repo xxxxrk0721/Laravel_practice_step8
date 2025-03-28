@@ -1,16 +1,3 @@
-{{--<!doctype html>--}}
-{{--<html lang="en">--}}
-{{--<head>--}}
-{{--    <meta charset="UTF-8">--}}
-{{--    <meta name="viewport"--}}
-{{--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--}}
-{{--    <meta http-equiv="X-UA-Compatible" content="ie=edge">--}}
-{{--    @vite(['resources/js/app.js'])--}}
-{{--    @vite(['resources/js/store.js'])--}}
-{{--    <title>Document</title>--}}
-{{--</head>--}}
-{{--<body>--}}
-{{--<header>--}}
 @extends('layouts.app')
 
 @section('title', 'タスク管理一覧')
@@ -26,24 +13,14 @@
             <h1>タスク新規登録画面</h1>
         </div>
     </div>
-{{--</header>--}}
 @endsection
-
 @section('content')
-{{--<main>--}}
     <div class="main_edit_inner">
-        <div class="success">
-            @if (session('success'))
-                <p style="color: green;" class="success_message">{{ session('success') }}</p>
-            @endif
-        </div>
+        <x-task-success-message />
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
-            @foreach (['task_name', 'task_content', 'ymd_to', 'ymd_from'] as $field)
-                @error($field)
-                <div class="error-message" style="color: red;">{{ $message }}</div>
-                @enderror
-            @endforeach
+            <x-task-store-error />
+
             <div class="button_area">
                 <div class="nav">
                     <div class="allnemu_button">
@@ -99,7 +76,4 @@
             </div>
         </form>
     </div>
-{{--</main>--}}
-{{--</body>--}}
-{{--</html>--}}
 @endsection
