@@ -116,7 +116,7 @@ main {
                         .search_box {
                             display: flex;
                             justify-content: center;
-                            position: fixed;
+                            //position: fixed;
                             background-color: white;
                             width: 100%;
                             div {
@@ -275,6 +275,7 @@ main {
         width: 100% !important;
 
         .button_area {
+            //position: fixed;
             margin: 0 !important;
 
             .nav {
@@ -316,9 +317,12 @@ main {
                         z-index: 1000;
                         width: 100%;
                         .search_form {
+                            position: fixed;
+                            width: 100%;
                             .search_box {
                                 display: flex;
                                 flex-direction: column;
+                                width: 100%;
 
                             }
                         }
