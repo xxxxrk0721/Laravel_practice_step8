@@ -31,9 +31,9 @@
                     @if (Route::has('login'))
                 <div class="welcome_nav">
                     @auth('users')
-                        <a href="{{ url('/user/dashboard') }}">user Dashboard</a>
+                        <a href="{{ url('/user/dashboard') }}" class="button">user Dashboard</a>
                     @elseauth('admin')
-                        <a href="{{ url('/tasks') }}">admin Dashboard</a>
+                        <a href="{{ url('/tasks') }}" class="button admin">admin Dashboard</a>
                     @else
                         <a href="{{ route('login') }}" class="button">ユーザー用ログイン</a>
                         <a href="{{ route('admin.login') }}" class="button admin">管理者用ログイン</a>
